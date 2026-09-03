@@ -1,0 +1,5 @@
+res://src/player/player.tscn
+res://src/player/states/state.gd
+res://src/player/states/state_machine.gd
+res://src/player/player.gd
+res://src/player/states/state_idle.gd

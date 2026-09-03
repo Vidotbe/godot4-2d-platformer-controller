@@ -1,0 +1,16 @@
+ea4bc82a6ad023ab7ee23ee620429895
+::res://::1788385794
+::res://assets/::1788386649
+::res://assets/sprites/::1788378925
+::res://assets/sprites/player/::1788388377
+Player_spritesheet.png::CompressedTexture2D::8850552447368101944::1788388367::1788388382::1::::<><>::
+::res://src/::1788364394
+::res://src/components/::1788386658
+::res://src/core/::1788386661
+::res://src/player/::1788387357
+player.tscn::PackedScene::8572152484144793177::1788387357::0::1::::<><>::uid://cw086b0jcegl0::::res://assets/sprites/player/Upward Jump.png<>res://src/player/player.gd<>res://src/player/states/state_machine.gd<>uid://cb8jqddafi0vn::::res://assets/sprites/player/Running.png<>res://src/player/states/state_idle.gd
+player.gd::GDScript::-1::1788386630::0::1::::<>CharacterBody2D<>::
+::res://src/player/states/::1788385915
+state_idle.gd::GDScript::-1::1788385915::0::1::::<>State<>::
+state_machine.gd::GDScript::-1::1788385490::0::1::::StateMachine<>Node<>::
+state.gd::GDScript::-1::1788384413::0::1::::State<>Node<>::
