@@ -1,9 +1,10 @@
 extends Node
 class_name State
 
+@warning_ignore("unused_signal")
 signal transitioned(state: State, new_state_name: String)
 
-var player: CharacterBody2D
+var player: Player
 
 # Called when the node enters the scene tree for the first time.
 func enter():

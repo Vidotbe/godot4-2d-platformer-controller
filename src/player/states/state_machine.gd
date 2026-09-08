@@ -6,7 +6,7 @@ class_name StateMachine
 var current_state: State
 var states: Dictionary = {}
 
-func _init(player: CharacterBody2D):
+func init(player: CharacterBody2D):
 	for child in get_children():
 		if child is State:
 			states[child.name.to_lower()] = child
@@ -34,5 +34,3 @@ func child_transitioned(state: State, new_state_name: String):
 	
 	new_state.enter()
 	current_state = new_state
-	
-	

@@ -1,3 +1,6 @@
-res://assets/sprites/player
 res://src/player/states
+res://src/levels
+res://assets/tilemaps/environment/textures
+res://assets/tilemaps/environment/resources
+res://assets/sprites/player
 res://src/player

@@ -1,5 +1,10 @@
-Sprite2D
+Timer
 Node
+Camera2D
+TileMapLayer
+AnimationPlayer
+AnimationTree
+Sprite2D
 CollisionShape2D
 AnimatedSprite2D
 CharacterBody2D

@@ -1,5 +1,10 @@
 res://src/player/player.tscn
-res://src/player/states/state.gd
-res://src/player/states/state_machine.gd
 res://src/player/player.gd
 res://src/player/states/state_idle.gd
+res://assets/tilemaps/environment/resources/new_tile_set.tres
+res://src/levels/main_scene.tscn
+res://src/player/states/state_machine.gd
+res://src/player/states/state.gd
+res://src/player/states/run_state.gd
+res://src/player/states/state_run.gd
+res://src/player/states/state_fall.gd
