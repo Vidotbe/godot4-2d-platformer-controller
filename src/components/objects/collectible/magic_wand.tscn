@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://cvso10jlmbudx"]
+
+[ext_resource type="Script" path="res://src/components/objects/collectible/collectible.gd" id="1_fiffy"]
+[ext_resource type="Texture2D" uid="uid://b5n37xyaffyss" path="res://assets/sprites/items/magic_wand.png" id="2_2isct"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ft6wb"]
+size = Vector2(12, 18)
+
+[node name="MagicWand" type="Area2D"]
+collision_layer = 4
+script = ExtResource("1_fiffy")
+item_type = "magic_wand"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_2isct")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ft6wb")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

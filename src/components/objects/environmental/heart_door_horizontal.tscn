@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://twa10kg2jcx4"]
+
+[ext_resource type="Script" path="res://src/components/objects/environmental/heart_door.gd" id="1_naaxc"]
+[ext_resource type="Texture2D" uid="uid://dhaht7yb8xcap" path="res://assets/sprites/environmental/heart_door_horizontal.png" id="2_d0g8k"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bxml5"]
+size = Vector2(46, 72)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_or08d"]
+size = Vector2(20, 72)
+
+[node name="HeartDoor" type="Area2D"]
+texture_filter = 1
+position = Vector2(-4, -28)
+collision_layer = 0
+script = ExtResource("1_naaxc")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(4, 0)
+texture = ExtResource("2_d0g8k")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(4, 1.52588e-05)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_bxml5")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+rotation = 1.5708
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, -4.00001)
+shape = SubResource("RectangleShape2D_or08d")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

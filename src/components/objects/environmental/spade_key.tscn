@@ -1,0 +1,87 @@
+[gd_scene load_steps=11 format=3 uid="uid://cailogthidnpe"]
+
+[ext_resource type="Script" path="res://src/components/objects/environmental/heart_key.gd" id="1_kvwvm"]
+[ext_resource type="Texture2D" uid="uid://dclcqvho5yjic" path="res://assets/sprites/environmental/spade_key.png" id="2_d5fgt"]
+[ext_resource type="AudioStream" uid="uid://c8e44kuwdsukg" path="res://assets/audio/sfx/key_ticking_sfx.wav" id="3_piwoi"]
+[ext_resource type="AudioStream" uid="uid://cjb4e7xbdcjh8" path="res://assets/audio/sfx/key_lastsec_sfx.wav" id="4_1ch7v"]
+[ext_resource type="Texture2D" uid="uid://h4rockbv8ekd" path="res://assets/sprites/environmental/spade_key_flash.png" id="5_rj7ri"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nw63m"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_skfgo"]
+radius = 5.0
+height = 22.0
+
+[sub_resource type="Animation" id="Animation_054wu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Flash:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_i22h4"]
+resource_name = "last_sec"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Flash:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j8v00"]
+_data = {
+"RESET": SubResource("Animation_054wu"),
+"last_sec": SubResource("Animation_i22h4")
+}
+
+[node name="SpadeKey" type="Area2D"]
+z_index = 2
+texture_filter = 1
+collision_layer = 0
+script = ExtResource("1_kvwvm")
+time_limit = 3.0
+key_type = "spade"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_nw63m")
+texture = ExtResource("2_d5fgt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_skfgo")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="Ticking" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_piwoi")
+
+[node name="LastSec" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_1ch7v")
+
+[node name="Animation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_j8v00")
+}
+
+[node name="Flash" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+texture = ExtResource("5_rj7ri")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

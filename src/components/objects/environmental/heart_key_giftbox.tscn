@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://buv8b7r1nhces"]
+
+[ext_resource type="Texture2D" uid="uid://bll2rmeay1x0n" path="res://assets/sprites/environmental/key_giftbox.png" id="1_e3f2c"]
+[ext_resource type="Script" path="res://src/components/objects/environmental/heart_key_giftbox.gd" id="2_6801n"]
+
+[node name="HeartKeyGiftbox" type="Sprite2D"]
+texture_filter = 1
+position = Vector2(0, -3)
+texture = ExtResource("1_e3f2c")
+hframes = 2
+script = ExtResource("2_6801n")
+key_type = "heart"
+
+[node name="KeySpawn" type="Marker2D" parent="."]
+position = Vector2(0, -14)

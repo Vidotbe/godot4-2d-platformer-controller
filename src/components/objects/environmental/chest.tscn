@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://cdj1itv84gi30"]
+
+[ext_resource type="Script" path="res://src/components/objects/environmental/chest.gd" id="1_3f1tj"]
+[ext_resource type="Texture2D" uid="uid://dqea7qu36ijug" path="res://assets/sprites/environmental/chest.png" id="1_28063"]
+[ext_resource type="AudioStream" uid="uid://r4sublk03rig" path="res://assets/audio/sfx/chest_treasure_sfx.wav" id="3_0a0wp"]
+[ext_resource type="AudioStream" uid="uid://caie2ncvwq17c" path="res://assets/audio/sfx/chest_open_sfx.wav" id="4_teuba"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_org6k"]
+size = Vector2(50, 12)
+
+[node name="Chest" type="Area2D"]
+texture_filter = 1
+position = Vector2(0, -20)
+script = ExtResource("1_3f1tj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_28063")
+hframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 18)
+shape = SubResource("RectangleShape2D_org6k")
+
+[node name="SpawnPosition" type="Marker2D" parent="."]
+position = Vector2(0, -1)
+
+[node name="SpawnTime" type="Timer" parent="."]
+wait_time = 0.15
+
+[node name="Rewards" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_0a0wp")
+
+[node name="OpenChest" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_teuba")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="SpawnTime" to="." method="_on_spawn_time_timeout"]

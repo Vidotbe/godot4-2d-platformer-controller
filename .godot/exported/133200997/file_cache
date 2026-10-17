@@ -1,0 +1,13 @@
+res://assets/tilemaps/environment/resources/new_tile_set.tres::7702bfa0ad818df535dcf1890d5accd7::1790717388::res://.godot/exported/133200997/export-6c5e3a9f177f4ad4a2b51e1c1bccab6e-new_tile_set.res
+res://src/components/objects/collectible/collectible.tscn::821dec5d3f970da881de72bf18fb17e5::1790801500::res://.godot/exported/133200997/export-e639f82bd64c3d6b0bf5055f5811f8b9-collectible.scn
+res://src/components/objects/environmental/fan.tscn::b9d5cc9c6bdb760cb6f1ddd86badd5d4::1790717123::res://.godot/exported/133200997/export-dbf7a9c38d0e5e267a1427927697f9fb-fan.scn
+res://src/components/objects/environmental/fan_down.tscn::a99dd444fdb8de4d246b1e2b21c80668::1790717242::res://.godot/exported/133200997/export-4d5f4d3c1ba3cfcf31c58a3e2888269c-fan_down.scn
+res://src/components/objects/environmental/fan_right.tscn::fb715794432747bcd86351f96d6200aa::1790717312::res://.godot/exported/133200997/export-75414c8d83c4118851d19c7a65cdddcf-fan_right.scn
+res://src/components/objects/environmental/fan_left.tscn::fdc76221a0fbc7229aeb1dcb93bde131::1790801059::res://.godot/exported/133200997/export-7a418b4403a1f94c05b2f2ea8443374c-fan_left.scn
+res://src/components/objects/environmental/spring_left.tscn::6470a69f57c8a576c8942bb46fe289cc::1790801500::res://.godot/exported/133200997/export-13f0d3a417c1fbb6c1e35105dd6be8c8-spring_left.scn
+res://src/components/objects/environmental/spring_right.tscn::4ecc02864444476282ba5225a905fe41::1790801500::res://.godot/exported/133200997/export-74fb669004824971d0ae575fa181c06f-spring_right.scn
+res://src/components/objects/environmental/spring_down.tscn::60ac116ede908faf5e5cbf9b147fdfa5::1790801500::res://.godot/exported/133200997/export-6099885b2a142a478d0fd7c832afbcdd-spring_down.scn
+res://src/components/objects/environmental/spring.tscn::5b56660bc0754004d1a1f0ed9e66ae90::1790710953::res://.godot/exported/133200997/export-096e99d3770e853cb76359ab1cf3975c-spring.scn
+res://src/components/ui/hud.tscn::ba94eba929ea862a5c93d65ca8f4ba20::1790801500::res://.godot/exported/133200997/export-18145e2f64bf78664cfc4a83995bb641-hud.scn
+res://src/levels/main_scene.tscn::0196d6f2d26b706b29bb443e63de3b48::1790801736::res://.godot/exported/133200997/export-d8f3dcada67f591f8a1e8516604dd110-main_scene.scn
+res://src/player/player.tscn::e70762174cc8d0ea987577c2fb31cf46::1790801499::res://.godot/exported/133200997/export-e6d031b4b01e7311dce0bbd1f2b58226-player.scn

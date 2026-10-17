@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cglcff2dcfgxl"]
+
+[ext_resource type="Texture2D" uid="uid://bupxvbols148e" path="res://assets/sprites/environmental/spade_key_giftbox.png" id="1_ghmyu"]
+[ext_resource type="Script" path="res://src/components/objects/environmental/heart_key_giftbox.gd" id="2_fn31n"]
+
+[node name="SpadeKeyGiftbox" type="Sprite2D"]
+texture_filter = 1
+position = Vector2(0, -3)
+texture = ExtResource("1_ghmyu")
+hframes = 2
+script = ExtResource("2_fn31n")
+key_type = "spade"
+
+[node name="KeySpawn" type="Marker2D" parent="."]
+position = Vector2(0, -14)

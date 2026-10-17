@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://bvtjctye7avei"]
+
+[ext_resource type="Script" path="res://src/components/objects/environmental/heart_door.gd" id="1_b61ly"]
+[ext_resource type="Texture2D" uid="uid://dauq8wu52panf" path="res://assets/sprites/environmental/spade_door.png" id="2_p53nk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bxml5"]
+size = Vector2(46, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_or08d"]
+size = Vector2(20, 64)
+
+[node name="SpadeDoor" type="Area2D"]
+texture_filter = 1
+position = Vector2(0, -28)
+collision_layer = 0
+script = ExtResource("1_b61ly")
+door_type = "spade"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_p53nk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_bxml5")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_or08d")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,0 +1,67 @@
+[gd_scene load_steps=7 format=3 uid="uid://2yxee6iwj7mn"]
+
+[ext_resource type="Script" path="res://src/components/objects/environmental/spring.gd" id="1_e32y5"]
+[ext_resource type="Texture2D" uid="uid://dsojjmagly3bt" path="res://assets/sprites/environmental/spring_spritesheet.png" id="2_vmekc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_58ofg"]
+size = Vector2(28, 10)
+
+[sub_resource type="Animation" id="Animation_se053"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_eq1re"]
+resource_name = "used"
+length = 0.16667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.133333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [1, 2, 0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rpxmx"]
+_data = {
+"RESET": SubResource("Animation_se053"),
+"used": SubResource("Animation_eq1re")
+}
+
+[node name="Spring" type="Area2D"]
+texture_filter = 1
+position = Vector2(12, -12)
+rotation = 1.5708
+collision_layer = 0
+script = ExtResource("1_e32y5")
+launch_direction = "Right"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_vmekc")
+hframes = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 7)
+shape = SubResource("RectangleShape2D_58ofg")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_rpxmx")
+}
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

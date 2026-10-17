@@ -1,0 +1,344 @@
+[gd_scene load_steps=25 format=3 uid="uid://clypgw0qlt70w"]
+
+[ext_resource type="Script" path="res://src/components/ui/hud.gd" id="1_rpu6r"]
+[ext_resource type="Texture2D" uid="uid://dfq24pbq5b3l0" path="res://assets/sprites/items/diamond.png" id="2_ugumb"]
+[ext_resource type="FontFile" uid="uid://balwuxhbnuje6" path="res://assets/fonts/alagard.ttf" id="3_v6k4k"]
+[ext_resource type="Texture2D" uid="uid://b0vq0dn41r7eh" path="res://assets/sprites/items/greengem.png" id="4_htwj6"]
+[ext_resource type="AudioStream" uid="uid://028pbvi3a6wh" path="res://assets/audio/sfx/buy_sfx.wav" id="5_d8h1b"]
+[ext_resource type="Texture2D" uid="uid://dllnqra6hkv1h" path="res://assets/sprites/items/magic_wand_hover.png" id="6_jkpkh"]
+[ext_resource type="Texture2D" uid="uid://b5n37xyaffyss" path="res://assets/sprites/items/magic_wand.png" id="6_s3wj0"]
+[ext_resource type="Texture2D" uid="uid://bx528ypk0csx4" path="res://assets/sprites/items/magic_wand_click.png" id="7_u7bnf"]
+[ext_resource type="Texture2D" uid="uid://c2k8ymaax644d" path="res://assets/ui/icons/map_hat_hover.png" id="9_iyjal"]
+[ext_resource type="Script" path="res://src/components/ui/map_button.gd" id="9_rpqk5"]
+[ext_resource type="Texture2D" uid="uid://r600a3auisdt" path="res://assets/ui/icons/map_hat_press.png" id="10_mrc37"]
+[ext_resource type="Texture2D" uid="uid://cns5m05sklj4u" path="res://assets/ui/icons/map_hat_button.png" id="11_u5dnu"]
+[ext_resource type="FontFile" uid="uid://b380l5jqm3vj3" path="res://assets/fonts/dogicapixel.ttf" id="13_8ufog"]
+[ext_resource type="AudioStream" uid="uid://bygyy5wrp5n0n" path="res://assets/audio/sfx/ui_category_sfx.wav" id="14_5j10u"]
+[ext_resource type="AudioStream" uid="uid://bl3hiv68by7cx" path="res://assets/audio/sfx/map_locked_sfx.wav" id="15_cxmes"]
+[ext_resource type="AudioStream" uid="uid://cvpom5ba5qvp7" path="res://assets/audio/sfx/map_hover_sfx.wav" id="16_tgxnp"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_8wber"]
+font = ExtResource("3_v6k4k")
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_m8ffj"]
+texture = ExtResource("6_jkpkh")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ibunu"]
+texture = ExtResource("7_u7bnf")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ox374"]
+texture = ExtResource("6_s3wj0")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fxwqe"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_u8atc"]
+texture = ExtResource("9_iyjal")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_x5osj"]
+texture = ExtResource("10_mrc37")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qcy23"]
+texture = ExtResource("11_u5dnu")
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_rpu6r")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -58.0
+offset_top = 6.0
+offset_right = -12.0
+offset_bottom = 34.0
+grow_horizontal = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+text = "0 / 50"
+label_settings = SubResource("LabelSettings_8wber")
+horizontal_alignment = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(396, 19)
+texture = ExtResource("2_ugumb")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 1
+position = Vector2(396, 40)
+texture = ExtResource("4_htwj6")
+
+[node name="Money" type="Label" parent="."]
+visible = false
+texture_filter = 1
+offset_left = 422.0
+offset_top = 33.0
+offset_right = 468.0
+offset_bottom = 48.0
+text = "0"
+label_settings = SubResource("LabelSettings_8wber")
+horizontal_alignment = 1
+
+[node name="buy_sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_d8h1b")
+
+[node name="Wand" type="Button" parent="."]
+z_index = 8
+z_as_relative = false
+texture_filter = 1
+offset_left = 365.0
+offset_top = 11.0
+offset_right = 383.0
+offset_bottom = 29.0
+size_flags_horizontal = 8
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_styles/hover = SubResource("StyleBoxTexture_m8ffj")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ibunu")
+theme_override_styles/normal = SubResource("StyleBoxTexture_ox374")
+
+[node name="Map" type="Control" parent="."]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 0
+offset_top = -170.0
+offset_right = 40.0
+offset_bottom = -130.0
+
+[node name="ColorRect" type="ColorRect" parent="Map"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 120.0
+offset_top = -8.0
+offset_right = 320.0
+offset_bottom = 142.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.392157)
+
+[node name="ColorRect2" type="ColorRect" parent="Map"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 120.0
+offset_top = 126.0
+offset_right = 320.0
+offset_bottom = 142.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.392157)
+
+[node name="Label" type="Label" parent="Map"]
+layout_mode = 0
+offset_left = 140.0
+offset_top = 12.0
+offset_right = 340.0
+offset_bottom = 162.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_fxwqe")
+
+[node name="Buttons" type="Control" parent="Map"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MapButton" type="Button" parent="Map/Buttons" groups=["map_points"]]
+layout_mode = 0
+offset_left = 271.0
+offset_top = 125.0
+offset_right = 285.0
+offset_bottom = 137.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_styles/hover = SubResource("StyleBoxTexture_u8atc")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_x5osj")
+theme_override_styles/normal = SubResource("StyleBoxTexture_qcy23")
+script = ExtResource("9_rpqk5")
+
+[node name="MapButton2" type="Button" parent="Map/Buttons" groups=["map_points"]]
+layout_mode = 0
+offset_left = 196.0
+offset_top = 125.0
+offset_right = 210.0
+offset_bottom = 137.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_styles/hover = SubResource("StyleBoxTexture_u8atc")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_x5osj")
+theme_override_styles/normal = SubResource("StyleBoxTexture_qcy23")
+script = ExtResource("9_rpqk5")
+ButtonID = 1
+
+[node name="MapButton3" type="Button" parent="Map/Buttons" groups=["map_points"]]
+layout_mode = 0
+offset_left = 244.0
+offset_top = 99.0
+offset_right = 258.0
+offset_bottom = 111.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_styles/hover = SubResource("StyleBoxTexture_u8atc")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_x5osj")
+theme_override_styles/normal = SubResource("StyleBoxTexture_qcy23")
+script = ExtResource("9_rpqk5")
+ButtonID = 2
+
+[node name="MapButton4" type="Button" parent="Map/Buttons" groups=["map_points"]]
+layout_mode = 0
+offset_left = 248.0
+offset_top = 66.0
+offset_right = 262.0
+offset_bottom = 78.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_styles/hover = SubResource("StyleBoxTexture_u8atc")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_x5osj")
+theme_override_styles/normal = SubResource("StyleBoxTexture_qcy23")
+script = ExtResource("9_rpqk5")
+ButtonID = 3
+
+[node name="MapButton5" type="Button" parent="Map/Buttons" groups=["map_points"]]
+layout_mode = 0
+offset_left = 208.0
+offset_top = 64.0
+offset_right = 222.0
+offset_bottom = 76.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_styles/hover = SubResource("StyleBoxTexture_u8atc")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_x5osj")
+theme_override_styles/normal = SubResource("StyleBoxTexture_qcy23")
+script = ExtResource("9_rpqk5")
+ButtonID = 4
+
+[node name="MapButton6" type="Button" parent="Map/Buttons" groups=["map_points"]]
+layout_mode = 0
+offset_left = 167.0
+offset_top = 47.0
+offset_right = 181.0
+offset_bottom = 59.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_styles/hover = SubResource("StyleBoxTexture_u8atc")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_x5osj")
+theme_override_styles/normal = SubResource("StyleBoxTexture_qcy23")
+script = ExtResource("9_rpqk5")
+ButtonID = 5
+
+[node name="MapButton7" type="Button" parent="Map/Buttons" groups=["map_points"]]
+layout_mode = 0
+offset_left = 314.0
+offset_top = 66.0
+offset_right = 328.0
+offset_bottom = 78.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_styles/hover = SubResource("StyleBoxTexture_u8atc")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_x5osj")
+theme_override_styles/normal = SubResource("StyleBoxTexture_qcy23")
+script = ExtResource("9_rpqk5")
+ButtonID = 6
+
+[node name="MapButton8" type="Button" parent="Map/Buttons" groups=["map_points"]]
+layout_mode = 0
+offset_left = 234.0
+offset_top = 29.0
+offset_right = 248.0
+offset_bottom = 41.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_styles/hover = SubResource("StyleBoxTexture_u8atc")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_x5osj")
+theme_override_styles/normal = SubResource("StyleBoxTexture_qcy23")
+script = ExtResource("9_rpqk5")
+ButtonID = 7
+
+[node name="MapButton9" type="Button" parent="Map/Buttons" groups=["map_points"]]
+layout_mode = 0
+offset_left = 197.0
+offset_top = 29.0
+offset_right = 211.0
+offset_bottom = 41.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_styles/hover = SubResource("StyleBoxTexture_u8atc")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_x5osj")
+theme_override_styles/normal = SubResource("StyleBoxTexture_qcy23")
+script = ExtResource("9_rpqk5")
+ButtonID = 8
+
+[node name="AreaName" type="Label" parent="Map"]
+layout_mode = 0
+offset_left = 142.0
+offset_top = 146.0
+offset_right = 338.0
+offset_bottom = 160.0
+theme_override_fonts/font = ExtResource("13_8ufog")
+theme_override_font_sizes/font_size = 8
+text = "area name"
+horizontal_alignment = 1
+vertical_alignment = 1
+justification_flags = 162
+
+[node name="SoundEffects" type="Node" parent="."]
+
+[node name="WandSfx" type="AudioStreamPlayer" parent="SoundEffects"]
+stream = ExtResource("14_5j10u")
+
+[node name="WarpLockedSfx" type="AudioStreamPlayer" parent="SoundEffects"]
+stream = ExtResource("15_cxmes")
+volume_db = -15.0
+
+[node name="WarpHoverSfx" type="AudioStreamPlayer" parent="SoundEffects"]
+stream = ExtResource("16_tgxnp")
+volume_db = -20.0
+
+[connection signal="pressed" from="Wand" to="." method="_on_wand_pressed"]
+[connection signal="mouse_entered" from="Map/Buttons/MapButton" to="." method="_on_map_button_mouse_entered" binds= [0]]
+[connection signal="mouse_exited" from="Map/Buttons/MapButton" to="." method="_on_map_button_mouse_exited"]
+[connection signal="pressed" from="Map/Buttons/MapButton" to="." method="_on_map_button_pressed" binds= [0]]
+[connection signal="mouse_entered" from="Map/Buttons/MapButton2" to="." method="_on_map_button_mouse_entered" binds= [1]]
+[connection signal="mouse_exited" from="Map/Buttons/MapButton2" to="." method="_on_map_button_mouse_exited"]
+[connection signal="pressed" from="Map/Buttons/MapButton2" to="." method="_on_map_button_pressed" binds= [1]]
+[connection signal="mouse_entered" from="Map/Buttons/MapButton3" to="." method="_on_map_button_mouse_entered" binds= [2]]
+[connection signal="mouse_exited" from="Map/Buttons/MapButton3" to="." method="_on_map_button_mouse_exited"]
+[connection signal="pressed" from="Map/Buttons/MapButton3" to="." method="_on_map_button_pressed" binds= [2]]
+[connection signal="mouse_entered" from="Map/Buttons/MapButton4" to="." method="_on_map_button_mouse_entered" binds= [3]]
+[connection signal="mouse_exited" from="Map/Buttons/MapButton4" to="." method="_on_map_button_mouse_exited"]
+[connection signal="pressed" from="Map/Buttons/MapButton4" to="." method="_on_map_button_pressed" binds= [3]]
+[connection signal="mouse_entered" from="Map/Buttons/MapButton5" to="." method="_on_map_button_mouse_entered" binds= [4]]
+[connection signal="mouse_exited" from="Map/Buttons/MapButton5" to="." method="_on_map_button_mouse_exited"]
+[connection signal="pressed" from="Map/Buttons/MapButton5" to="." method="_on_map_button_pressed" binds= [4]]
+[connection signal="mouse_entered" from="Map/Buttons/MapButton6" to="." method="_on_map_button_mouse_entered" binds= [5]]
+[connection signal="mouse_exited" from="Map/Buttons/MapButton6" to="." method="_on_map_button_mouse_exited"]
+[connection signal="pressed" from="Map/Buttons/MapButton6" to="." method="_on_map_button_pressed" binds= [5]]
+[connection signal="mouse_entered" from="Map/Buttons/MapButton7" to="." method="_on_map_button_mouse_entered" binds= [6]]
+[connection signal="mouse_exited" from="Map/Buttons/MapButton7" to="." method="_on_map_button_mouse_exited"]
+[connection signal="pressed" from="Map/Buttons/MapButton7" to="." method="_on_map_button_pressed" binds= [6]]
+[connection signal="mouse_entered" from="Map/Buttons/MapButton8" to="." method="_on_map_button_mouse_entered" binds= [7]]
+[connection signal="mouse_exited" from="Map/Buttons/MapButton8" to="." method="_on_map_button_mouse_exited"]
+[connection signal="pressed" from="Map/Buttons/MapButton8" to="." method="_on_map_button_pressed" binds= [7]]
+[connection signal="mouse_entered" from="Map/Buttons/MapButton9" to="." method="_on_map_button_mouse_entered" binds= [8]]
+[connection signal="mouse_exited" from="Map/Buttons/MapButton9" to="." method="_on_map_button_mouse_exited"]
+[connection signal="pressed" from="Map/Buttons/MapButton9" to="." method="_on_map_button_pressed" binds= [8]]
