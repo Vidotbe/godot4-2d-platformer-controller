@@ -1,0 +1,140 @@
+[gd_scene load_steps=19 format=3 uid="uid://crfvb0g7amgfx"]
+
+[ext_resource type="Texture2D" uid="uid://bhaje2fqr0fsv" path="res://assets/ui/title screen/title_screen.png" id="1_mj53j"]
+[ext_resource type="Script" path="res://src/components/ui/title_screen.gd" id="1_vn40k"]
+[ext_resource type="Texture2D" uid="uid://cs6kuqhwm5bne" path="res://assets/ui/title screen/tophat.png" id="3_afnrq"]
+[ext_resource type="Texture2D" uid="uid://cs712rt5jnwn3" path="res://assets/ui/title screen/adventure_card_hover.png" id="4_x1q7y"]
+[ext_resource type="Texture2D" uid="uid://xvanm5xs20hr" path="res://assets/ui/title screen/adventure_card_normal.png" id="5_w6m4j"]
+[ext_resource type="Texture2D" uid="uid://ciqsxjx8bulpy" path="res://assets/ui/title screen/sandbox_card_hover.png" id="6_tkyf5"]
+[ext_resource type="Texture2D" uid="uid://eo2kk7npjou5" path="res://assets/ui/title screen/sandbox_card_normal.png" id="7_5lx2p"]
+[ext_resource type="FontFile" uid="uid://balwuxhbnuje6" path="res://assets/fonts/alagard.ttf" id="8_78up8"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7v5hk"]
+texture = ExtResource("4_x1q7y")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6ndp7"]
+texture = ExtResource("5_w6m4j")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7rxtp"]
+texture = ExtResource("5_w6m4j")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7ihtn"]
+texture = ExtResource("6_tkyf5")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ev1tc"]
+texture = ExtResource("7_5lx2p")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qqc00"]
+texture = ExtResource("7_5lx2p")
+
+[sub_resource type="LabelSettings" id="LabelSettings_cw4dd"]
+font = ExtResource("8_78up8")
+
+[sub_resource type="Animation" id="Animation_dw7e4"]
+resource_name = "start"
+length = 2.66667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D:offset")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.666667, 2.63333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 480)]
+}
+
+[sub_resource type="Animation" id="Animation_afrqg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kalwa"]
+_data = {
+"RESET": SubResource("Animation_afrqg"),
+"start": SubResource("Animation_dw7e4")
+}
+
+[node name="TitleScreen" type="Node2D"]
+texture_filter = 1
+script = ExtResource("1_vn40k")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 480.0
+offset_bottom = 270.0
+color = Color(0.25098, 0.2, 0.32549, 1)
+
+[node name="Title" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Title"]
+position = Vector2(242, 64)
+texture = ExtResource("1_mj53j")
+vframes = 2
+
+[node name="TopHat" type="Sprite2D" parent="."]
+position = Vector2(240, 497)
+texture = ExtResource("3_afnrq")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(240, 135)
+
+[node name="AdventureButton" type="Button" parent="."]
+offset_left = 122.0
+offset_top = 112.0
+offset_right = 198.0
+offset_bottom = 214.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_styles/hover = SubResource("StyleBoxTexture_7v5hk")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_6ndp7")
+theme_override_styles/normal = SubResource("StyleBoxTexture_7rxtp")
+action_mode = 0
+
+[node name="SandboxButton" type="Button" parent="."]
+offset_left = 282.0
+offset_top = 112.0
+offset_right = 358.0
+offset_bottom = 214.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_styles/hover = SubResource("StyleBoxTexture_7ihtn")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ev1tc")
+theme_override_styles/normal = SubResource("StyleBoxTexture_qqc00")
+action_mode = 0
+
+[node name="DescriptionLabel" type="Label" parent="."]
+offset_top = 239.0
+offset_right = 480.0
+offset_bottom = 270.0
+text = "Please select your experience"
+label_settings = SubResource("LabelSettings_cw4dd")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_kalwa")
+}
+
+[connection signal="mouse_entered" from="AdventureButton" to="." method="_on_adventure_button_mouse_entered"]
+[connection signal="mouse_exited" from="AdventureButton" to="." method="_on_adventure_button_mouse_exited"]
+[connection signal="pressed" from="AdventureButton" to="." method="_on_adventure_button_pressed"]
+[connection signal="mouse_entered" from="SandboxButton" to="." method="_on_sandbox_button_mouse_entered"]
+[connection signal="mouse_exited" from="SandboxButton" to="." method="_on_sandbox_button_mouse_exited"]
+[connection signal="pressed" from="SandboxButton" to="." method="_on_sandbox_button_pressed"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

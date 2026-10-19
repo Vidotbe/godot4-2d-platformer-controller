@@ -24,3 +24,7 @@ signal update_checkpoint_status
 
 @warning_ignore("unused_signal")
 signal reset_awareness
+
+
+@warning_ignore("unused_signal")
+signal on_all_diamonds

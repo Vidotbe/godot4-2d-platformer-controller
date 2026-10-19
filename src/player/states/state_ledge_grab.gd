@@ -40,6 +40,12 @@ func exit():
 	pass
 
 func physics_update(_delta):
+	if not player.wall_detect.is_colliding() or not player.wall_snap_raycast.is_colliding():
+		transitioned.emit(self, "Fall")
+		return
+	
+	
+	
 	if player.just_died:
 		transitioned.emit(self, "Idle")
 		return

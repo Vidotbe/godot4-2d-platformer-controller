@@ -21,7 +21,7 @@ position = Vector2(0, 12.5)
 shape = SubResource("RectangleShape2D_wodgf")
 
 [node name="Marker2D" type="Marker2D" parent="."]
-position = Vector2(0, 35)
+position = Vector2(0, 9)
 
 [node name="ActiveSfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_yui1e")

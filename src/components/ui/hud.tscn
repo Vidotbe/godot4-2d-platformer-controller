@@ -97,6 +97,7 @@ horizontal_alignment = 1
 stream = ExtResource("5_d8h1b")
 
 [node name="Wand" type="Button" parent="."]
+visible = false
 z_index = 8
 z_as_relative = false
 texture_filter = 1

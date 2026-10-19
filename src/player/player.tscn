@@ -1,4 +1,4 @@
-[gd_scene load_steps=99 format=3 uid="uid://dueodmpmh8l1b"]
+[gd_scene load_steps=104 format=3 uid="uid://dueodmpmh8l1b"]
 
 [ext_resource type="Script" path="res://src/player/player.gd" id="1_ndqns"]
 [ext_resource type="Texture2D" uid="uid://dydjknojaeev5" path="res://assets/sprites/player/Player_spritesheet.png" id="2_ph1x1"]
@@ -17,6 +17,7 @@
 [ext_resource type="AudioStream" uid="uid://btrw3mey30v3v" path="res://assets/audio/sfx/jump_sfx.wav" id="12_wmbdb"]
 [ext_resource type="AudioStream" uid="uid://hj6qmei0rou2" path="res://assets/audio/sfx/greengem_sfx.wav" id="13_42av6"]
 [ext_resource type="AudioStream" uid="uid://iigumb3ydh12" path="res://assets/audio/sfx/reddiamond_sfx.wav" id="14_tqu0v"]
+[ext_resource type="Script" path="res://src/player/states/state_fast_travel.gd" id="15_3562u"]
 [ext_resource type="AudioStream" uid="uid://dx6j1jlt0r0dg" path="res://assets/audio/sfx/spring_sfx.wav" id="15_imwf2"]
 [ext_resource type="AudioStream" uid="uid://bqb2rx0dpdnj4" path="res://assets/audio/sfx/death1_sfx.wav" id="16_sepik"]
 [ext_resource type="AudioStream" uid="uid://kaghdsxe7r0s" path="res://assets/audio/sfx/death2_sfx.wav" id="17_gate7"]
@@ -401,6 +402,36 @@ tracks/0/keys = {
 "values": [70]
 }
 
+[sub_resource type="Animation" id="Animation_uaqpr"]
+resource_name = "fast_travel_up"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [84]
+}
+
+[sub_resource type="Animation" id="Animation_pby6s"]
+resource_name = "fast_travel_down"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [83]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_iqbpl"]
 _data = {
 "RESET": SubResource("Animation_hahav"),
@@ -410,6 +441,8 @@ _data = {
 "crouch_walk": SubResource("Animation_k1f5d"),
 "double_jump": SubResource("Animation_bc6gw"),
 "fall": SubResource("Animation_f5gmj"),
+"fast_travel_down": SubResource("Animation_pby6s"),
+"fast_travel_up": SubResource("Animation_uaqpr"),
 "idle": SubResource("Animation_8v48p"),
 "jump": SubResource("Animation_kb4up"),
 "jumptofall": SubResource("Animation_p0n7d"),
@@ -440,6 +473,12 @@ animation = &"double_jump"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_l1icx"]
 animation = &"fall"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_f36sf"]
+animation = &"fast_travel_down"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_mnqc7"]
+animation = &"fast_travel_up"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_p0t78"]
 animation = &"idle"
@@ -497,6 +536,10 @@ states/double_jump/node = SubResource("AnimationNodeAnimation_7tnud")
 states/double_jump/position = Vector2(722, -65)
 states/fall/node = SubResource("AnimationNodeAnimation_l1icx")
 states/fall/position = Vector2(535, 100)
+states/fast_travel_down/node = SubResource("AnimationNodeAnimation_f36sf")
+states/fast_travel_down/position = Vector2(418, -177)
+states/fast_travel_up/node = SubResource("AnimationNodeAnimation_mnqc7")
+states/fast_travel_up/position = Vector2(418, -265)
 states/idle/node = SubResource("AnimationNodeAnimation_p0t78")
 states/idle/position = Vector2(304, 100)
 states/jump/node = SubResource("AnimationNodeAnimation_gec0r")
@@ -520,7 +563,7 @@ states/wall_slide_down/position = Vector2(722, 182)
 states/wall_slide_up/node = SubResource("AnimationNodeAnimation_am3i0")
 states/wall_slide_up/position = Vector2(722, 12)
 transitions = ["jump", "jumptofall", SubResource("AnimationNodeStateMachineTransition_iu226"), "jumptofall", "fall", SubResource("AnimationNodeStateMachineTransition_7htan"), "double_jump", "fall", SubResource("AnimationNodeStateMachineTransition_s87xa")]
-graph_offset = Vector2(-75, 2)
+graph_offset = Vector2(-194, -520)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7op7o"]
 size = Vector2(3, 8)
@@ -765,6 +808,9 @@ one_shot = true
 [node name="CooldownTimer" type="Timer" parent="StateMachine/Air Dash"]
 wait_time = 0.2
 one_shot = true
+
+[node name="Fast Travel" type="Node" parent="StateMachine"]
+script = ExtResource("15_3562u")
 
 [node name="SoundEffects" type="Node2D" parent="."]
 

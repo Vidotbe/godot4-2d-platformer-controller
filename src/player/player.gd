@@ -118,6 +118,9 @@ var active_key : Area2D = null
 @onready var player_boots : Sprite2D = $Boots
 
 
+var fast_travel_target : Vector2 = Vector2(0,0)
+var is_travelling = false
+
 func _ready():
 	state_machine.init(self)
 	respawn_position = global_position
@@ -190,6 +193,14 @@ func reset_awareness():
 	player_eyes.show()
 	camera.limit_left = -3207
 	camera.limit_right = 2936
+
+func start_fast_travel(target : Vector2):
+	fast_travel_target = target
+	is_travelling = true
+	velocity.x = 0
+	velocity.y = 0
+	reset_active_key()
+	state_machine.child_transitioned(state_machine.current_state, "Fast Travel")
 
 func warp_effect():
 	if warp_effect_animation.is_playing():

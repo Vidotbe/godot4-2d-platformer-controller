@@ -32,4 +32,5 @@ func physics_update(delta):
 			return
 	else:
 		player.reset_standing_shape()
+		player.is_jumping = false
 		transitioned.emit(self, "Fall")

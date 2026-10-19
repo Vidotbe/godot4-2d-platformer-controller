@@ -59,10 +59,14 @@ var default_values : Dictionary = {}
 var console_speed_up : float = 15.0
 var console_speed_down = 1500
 var capacity_used = 0
+
 @export_category("USE THESE TO FUCKING CHEAT")
 @export var maximum_capacity = 0
 
 @export var total_money = 0
+
+
+
 
 #SLIDER TEXTURES
 @onready var slider_texture : Texture2D = preload("res://assets/ui/console/slider.png")
@@ -80,6 +84,11 @@ var capacity_used = 0
 
 
 func _ready():
+	if PlayerData.sandbox_mode:
+		maximum_capacity = 1000
+		total_money = 1000
+		money_label.text = "1000"
+
 	update_ui()
 
 	update_capacity()
@@ -93,6 +102,8 @@ func _ready():
 	EventBus.item_collected.connect(_on_item_collected)
 
 	EventBus.skill_bought.connect(_on_skill_bought)
+
+
 
 	#JUMPING
 	setup_hover($CategoryContainer/Jumping/TopSliders/Container/VBoxContainer/TopSliders/VBoxContainer2/Label, "Tune maximum jump height.")
@@ -180,7 +191,6 @@ func set_slider_texture():
 	
 	for slider in sliders:
 		if slider is HSlider:
-			print("applied")
 			slider.add_theme_stylebox_override("slider", slider_empty)
 			slider.add_theme_stylebox_override("grabber_area", style_box)
 			slider.add_theme_icon_override("grabber_disabled", grabber)
@@ -468,10 +478,18 @@ func _on_item_collected(item_type: String, _item_value: int):
 		money_label.text = str(hud.money_count)
 	if item_type == "diamond":
 		maximum_capacity = hud.diamond_count
-		capacity_label.text = str(capacity_used) + "/" + str(maximum_capacity)
+		if PlayerData.sandbox_mode:
+			capacity_label.text = str(capacity_used) + "/ inf"
+		else:
+			capacity_label.text = str(capacity_used) + "/" + str(maximum_capacity)
 
 func update_capacity():
-	capacity_label.text = str(capacity_used) + "/" + str(maximum_capacity)
+	if PlayerData.sandbox_mode:
+		capacity_label.text = str(capacity_used) + "/inf"
+		
+	else:
+		capacity_label.text = str(capacity_used) + "/" + str(maximum_capacity)
+
 
 func _on_skill_bought():
 	money_label.text = str(hud.money_count)

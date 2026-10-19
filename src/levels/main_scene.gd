@@ -11,6 +11,16 @@ extends Node2D
 func _ready():
 	EventBus.reset_awareness.connect(restore)
 
+	if PlayerData.sandbox_mode:
+		patch.enabled = true
+
+func _process(_delta):
+	if player.global_position.y < -2300 and player.global_position.x < 0:
+		player.camera.limit_left = -4152
+
+	if player.global_position.y > -2300 and player.global_position.x < 0:
+		player.camera.limit_left = -3207
+
 
 func restore():
 	background.show()

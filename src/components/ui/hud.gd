@@ -29,6 +29,8 @@ var checkpoints : Dictionary = {}
 var map_speed_up : float = 15.0
 var map_speed_down = 1500
 
+var time_to_go = false
+
 func _ready():
 	EventBus.item_collected.connect(_on_item_collected)
 	EventBus.update_checkpoint_status.connect(register_checkpoints)
@@ -43,13 +45,20 @@ func _ready():
 	var screen_center := DisplayServer.screen_get_position() + (DisplayServer.screen_get_size() / 2)
 	DisplayServer.window_set_position(screen_center - (window_size / 2))
 
+	if PlayerData.sandbox_mode:
+		diamond_count = 1000
+		money_count = 1000
+		wand_button.show()
+		await get_tree().process_frame
+		EventBus.emit_signal("reset_awareness")
+
 	update_ui()
 	register_checkpoints()
 	area_name.text = ""
 
 	if PlayerData.player_has_wand:
 		wand_button.show()
-
+		
 
 func _process(delta):
 	if map_active:
@@ -58,6 +67,11 @@ func _process(delta):
 			map.position.y = 0
 	else:
 		map.position.y = move_toward(map.position.y, -170, map_speed_down * delta)
+
+
+	if diamond_count == max_diamonds and not time_to_go:
+		time_to_go = true
+		EventBus.emit_signal("on_all_diamonds")
 
 
 func register_checkpoints():
@@ -112,8 +126,8 @@ func _on_map_button_pressed(ButtonID):
 	
 	var checkpoint_data = checkpoints[ButtonID]
 	
-	if checkpoint_data["is_unlocked"]:
-		player.global_position = checkpoint_data["global_position"]
+	if checkpoint_data["is_unlocked"] and not player.is_travelling:
+		player.start_fast_travel(checkpoint_data["global_position"]) 
 		player.warp_effect()
 		if not player.used_wand:
 			EventBus.emit_signal("reset_awareness")

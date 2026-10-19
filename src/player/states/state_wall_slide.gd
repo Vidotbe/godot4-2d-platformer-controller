@@ -33,17 +33,20 @@ func physics_update(delta):
 			if player.move_direction == 1:
 				if Input.is_action_just_pressed("left"):
 					player.move_direction = 1
+					player.is_jumping = true
 					transitioned.emit(self, "Fall")
 					player.animation.start("fall")
 					return
 			else:
 				if Input.is_action_just_pressed("right"):
 					player.move_direction = -1
+					player.is_jumping = true
 					transitioned.emit(self, "Fall")
 					player.animation.start("fall")
 					return
 		
 		elif not player.wall_detect.is_colliding():
+			player.is_jumping = true
 			transitioned.emit(self, "Fall")
 			player.animation.start("fall")
 			return

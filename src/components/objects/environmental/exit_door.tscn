@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c6xwwsoi4s5ev" path="res://assets/sprites/environmental/exit_door.png" id="2_vogp7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ip4if"]
-size = Vector2(51, 42)
+size = Vector2(51, 6)
 
 [node name="Exit Door" type="Area2D"]
 texture_filter = 1
@@ -15,5 +15,5 @@ texture = ExtResource("2_vogp7")
 hframes = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, 37)
+position = Vector2(0.5, 55)
 shape = SubResource("RectangleShape2D_ip4if")
