@@ -221,6 +221,36 @@ tracks/0/keys = {
 "values": [39]
 }
 
+[sub_resource type="Animation" id="Animation_pby6s"]
+resource_name = "fast_travel_down"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [83]
+}
+
+[sub_resource type="Animation" id="Animation_uaqpr"]
+resource_name = "fast_travel_up"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [84]
+}
+
 [sub_resource type="Animation" id="Animation_8v48p"]
 resource_name = "idle"
 length = 0.733335
@@ -400,36 +430,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [70]
-}
-
-[sub_resource type="Animation" id="Animation_uaqpr"]
-resource_name = "fast_travel_up"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [84]
-}
-
-[sub_resource type="Animation" id="Animation_pby6s"]
-resource_name = "fast_travel_down"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [83]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_iqbpl"]

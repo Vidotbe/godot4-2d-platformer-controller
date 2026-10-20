@@ -72,14 +72,18 @@ func _on_pressed():
 	if type == "Fur":
 		player.player_fur.modulate = modulate
 		editor.selected_color = self
+		PlayerData.fur_color = modulate
 	if type == "Eye":
 		player.player_eyes.modulate = modulate
 		editor.selected_eye_color = self
+		PlayerData.eye_color = modulate
 	if type == "Glove":
 		player.player_gloves.modulate = modulate
 		editor.selected_glove_color = self
+		PlayerData.gloves_color = modulate
 	if type == "Boot":
 		player.player_boots.modulate = modulate
 		editor.selected_boot_color = self
+		PlayerData.boots_color = modulate
 
 	update_selection()

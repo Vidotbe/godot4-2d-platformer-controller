@@ -91,10 +91,13 @@ func register_checkpoints():
 	for node in get_tree().get_nodes_in_group("map_points"):
 		if node is Button:
 			if checkpoints.has(node.ButtonID):
-				if checkpoints[node.ButtonID]["is_unlocked"]:
+				if PlayerData.sandbox_mode:
 					node.self_modulate = Color.WHITE
 				else:
-					node.self_modulate = Color.RED
+					if checkpoints[node.ButtonID]["is_unlocked"]:
+						node.self_modulate = Color.WHITE
+					else:
+						node.self_modulate = Color.RED
 
 func _on_item_collected(item_type: String, item_value: int):
 	if item_type == "diamond":
@@ -108,7 +111,10 @@ func _on_item_collected(item_type: String, item_value: int):
 		PlayerData.player_has_wand = true
 
 func update_ui():
-	diamond_label.text = str(diamond_count) + " / " + str(max_diamonds)
+	if PlayerData.sandbox_mode:
+		diamond_label.text = "Infinite"
+	else:
+		diamond_label.text = str(diamond_count) + " / " + str(max_diamonds)
 	money_label.text = str(money_count)
 
 
@@ -126,13 +132,18 @@ func _on_map_button_pressed(ButtonID):
 	
 	var checkpoint_data = checkpoints[ButtonID]
 	
-	if checkpoint_data["is_unlocked"] and not player.is_travelling:
-		player.start_fast_travel(checkpoint_data["global_position"]) 
-		player.warp_effect()
-		if not player.used_wand:
-			EventBus.emit_signal("reset_awareness")
+	if PlayerData.sandbox_mode:
+		if not player.is_travelling:
+			player.start_fast_travel(checkpoint_data["global_position"]) 
+			player.warp_effect()
 	else:
-		warp_locked_sfx.play()
+		if checkpoint_data["is_unlocked"] and not player.is_travelling:
+			player.start_fast_travel(checkpoint_data["global_position"]) 
+			player.warp_effect()
+			if not player.used_wand:
+				EventBus.emit_signal("reset_awareness")
+		else:
+			warp_locked_sfx.play()
 
 func _on_map_button_mouse_entered(ButtonID):
 	if checkpoints.has(ButtonID):

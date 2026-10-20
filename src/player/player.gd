@@ -199,7 +199,8 @@ func start_fast_travel(target : Vector2):
 	is_travelling = true
 	velocity.x = 0
 	velocity.y = 0
-	reset_active_key()
+	if active_key != null:
+		reset_active_key()
 	state_machine.child_transitioned(state_machine.current_state, "Fast Travel")
 
 func warp_effect():

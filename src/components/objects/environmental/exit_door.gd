@@ -14,4 +14,5 @@ func open_door():
 
 func _on_body_entered(_body):
 	if open:
-		print("play ending")
+		PlayerData.adventure_mode_complete = true
+		get_tree().call_deferred("change_scene_to_file", "res://src/components/ui/title_screen.tscn")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://crfvb0g7amgfx"]
+[gd_scene load_steps=39 format=3 uid="uid://crfvb0g7amgfx"]
 
 [ext_resource type="Texture2D" uid="uid://bhaje2fqr0fsv" path="res://assets/ui/title screen/title_screen.png" id="1_mj53j"]
 [ext_resource type="Script" path="res://src/components/ui/title_screen.gd" id="1_vn40k"]
@@ -8,6 +8,18 @@
 [ext_resource type="Texture2D" uid="uid://ciqsxjx8bulpy" path="res://assets/ui/title screen/sandbox_card_hover.png" id="6_tkyf5"]
 [ext_resource type="Texture2D" uid="uid://eo2kk7npjou5" path="res://assets/ui/title screen/sandbox_card_normal.png" id="7_5lx2p"]
 [ext_resource type="FontFile" uid="uid://balwuxhbnuje6" path="res://assets/fonts/alagard.ttf" id="8_78up8"]
+[ext_resource type="Texture2D" uid="uid://mabfb5sv20a2" path="res://assets/ui/title screen/pre_title.png" id="9_i2p3g"]
+[ext_resource type="FontFile" uid="uid://b380l5jqm3vj3" path="res://assets/fonts/dogicapixel.ttf" id="10_3on8o"]
+[ext_resource type="AudioStream" uid="uid://yf5ikkuqis1v" path="res://assets/audio/sfx/checkpoint_sfx.wav" id="11_kmjkh"]
+[ext_resource type="Texture2D" uid="uid://1a7kmaevbp3v" path="res://assets/ui/title screen/adventure_mode_star.png" id="12_mqgel"]
+[ext_resource type="Texture2D" uid="uid://byu7d8gs6ekwd" path="res://assets/ui/title screen/title_fur.png" id="13_66cp8"]
+[ext_resource type="Texture2D" uid="uid://8eny2nc5n5xh" path="res://assets/ui/title screen/title_eyes.png" id="14_0wwk7"]
+[ext_resource type="Texture2D" uid="uid://xww76l2k4a4d" path="res://assets/ui/title screen/title_gloves.png" id="15_nvxw3"]
+[ext_resource type="Texture2D" uid="uid://tejo3pi1retf" path="res://assets/ui/title screen/title_boots.png" id="16_xo3fv"]
+[ext_resource type="FontFile" uid="uid://cg42lqesxnqtp" path="res://assets/fonts/upheavtt.ttf" id="17_n6668"]
+[ext_resource type="AudioStream" uid="uid://ofu4vg4aunc7" path="res://assets/audio/sfx/title_start_sfx.wav" id="18_ypa7f"]
+[ext_resource type="AudioStream" uid="uid://4xrocrmhu0lx" path="res://assets/audio/music/title_music.ogg" id="19_kjdhs"]
+[ext_resource type="AudioStream" uid="uid://c6ye2m0jhvs2g" path="res://assets/audio/music/pretitle_music.ogg" id="20_ik3l6"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7v5hk"]
 texture = ExtResource("4_x1q7y")
@@ -30,6 +42,21 @@ texture = ExtResource("7_5lx2p")
 [sub_resource type="LabelSettings" id="LabelSettings_cw4dd"]
 font = ExtResource("8_78up8")
 
+[sub_resource type="Animation" id="Animation_afrqg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_dw7e4"]
 resource_name = "start"
 length = 2.66667
@@ -46,25 +73,164 @@ tracks/0/keys = {
 "values": [Vector2(0, 0), Vector2(0, 480)]
 }
 
-[sub_resource type="Animation" id="Animation_afrqg"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kalwa"]
+_data = {
+"RESET": SubResource("Animation_afrqg"),
+"start": SubResource("Animation_dw7e4")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_k42bj"]
+font = ExtResource("10_3on8o")
+font_size = 8
+
+[sub_resource type="Animation" id="Animation_x7qgk"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Camera2D:offset")
+tracks/0/path = NodePath("CanvasLayer/Node2D:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 0)]
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/PopUp:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.0784314, 0.0784314, 0.0784314, 1)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_kalwa"]
+[sub_resource type="Animation" id="Animation_isb0t"]
+resource_name = "popup_and_fade"
+length = 4.0
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Node2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.7, 2.7, 2.9, 3.1, 3.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0.741176), Color(1, 1, 1, 0.494118), Color(1, 1, 1, 0.247059), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/PopUp:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.7),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Color(0.0784314, 0.0784314, 0.0784314, 1), Color(1, 1, 1, 0.333333)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jx2ny"]
 _data = {
-"RESET": SubResource("Animation_afrqg"),
-"start": SubResource("Animation_dw7e4")
+"RESET": SubResource("Animation_x7qgk"),
+"popup_and_fade": SubResource("Animation_isb0t")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_cf4c7"]
+font = ExtResource("17_n6668")
+font_size = 20
+
+[sub_resource type="Animation" id="Animation_sg6pp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.140399, 0.107301, 0.188605, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_sblom"]
+resource_name = "flash"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.619069, 0.54382, 0.737175, 1), Color(0.25098, 0.2, 0.32549, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_x6pew"]
+_data = {
+"RESET": SubResource("Animation_sg6pp"),
+"flash": SubResource("Animation_sblom")
 }
 
 [node name="TitleScreen" type="Node2D"]
@@ -74,17 +240,44 @@ script = ExtResource("1_vn40k")
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_right = 480.0
 offset_bottom = 270.0
-color = Color(0.25098, 0.2, 0.32549, 1)
+color = Color(0.140399, 0.107301, 0.188605, 1)
 
 [node name="Title" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
+offset_top = 60.0
+offset_bottom = 60.0
 metadata/_edit_use_anchors_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Title"]
 position = Vector2(242, 64)
 texture = ExtResource("1_mj53j")
 vframes = 2
+
+[node name="Bunny" type="Node2D" parent="Title"]
+texture_filter = 1
+position = Vector2(319, 25)
+
+[node name="Fur" type="Sprite2D" parent="Title/Bunny"]
+position = Vector2(-15, 0)
+texture = ExtResource("13_66cp8")
+hframes = 2
+
+[node name="Eyes" type="Sprite2D" parent="Title/Bunny"]
+modulate = Color(0.172833, 0.172833, 0.172833, 1)
+position = Vector2(-15, 0)
+texture = ExtResource("14_0wwk7")
+hframes = 2
+
+[node name="Gloves" type="Sprite2D" parent="Title/Bunny"]
+position = Vector2(-15, 0)
+texture = ExtResource("15_nvxw3")
+hframes = 2
+
+[node name="Boots" type="Sprite2D" parent="Title/Bunny"]
+position = Vector2(-15, 0)
+texture = ExtResource("16_xo3fv")
+hframes = 2
 
 [node name="TopHat" type="Sprite2D" parent="."]
 position = Vector2(240, 497)
@@ -95,9 +288,9 @@ position = Vector2(240, 135)
 
 [node name="AdventureButton" type="Button" parent="."]
 offset_left = 122.0
-offset_top = 112.0
+offset_top = 288.0
 offset_right = 198.0
-offset_bottom = 214.0
+offset_bottom = 390.0
 focus_mode = 0
 mouse_default_cursor_shape = 2
 theme_override_styles/hover = SubResource("StyleBoxTexture_7v5hk")
@@ -107,9 +300,9 @@ action_mode = 0
 
 [node name="SandboxButton" type="Button" parent="."]
 offset_left = 282.0
-offset_top = 112.0
+offset_top = 288.0
 offset_right = 358.0
-offset_bottom = 214.0
+offset_bottom = 390.0
 focus_mode = 0
 mouse_default_cursor_shape = 2
 theme_override_styles/hover = SubResource("StyleBoxTexture_7ihtn")
@@ -118,10 +311,11 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_qqc00")
 action_mode = 0
 
 [node name="DescriptionLabel" type="Label" parent="."]
+visible = false
 offset_top = 239.0
 offset_right = 480.0
 offset_bottom = 270.0
-text = "Please select your experience"
+text = "Select Mode"
 label_settings = SubResource("LabelSettings_cw4dd")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -131,6 +325,78 @@ libraries = {
 "": SubResource("AnimationLibrary_kalwa")
 }
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+modulate = Color(0.0784314, 0.0784314, 0.0784314, 1)
+offset_right = 480.0
+offset_bottom = 270.0
+color = Color(0.08, 0.08, 0.08, 1)
+
+[node name="Node2D" type="Node2D" parent="CanvasLayer"]
+modulate = Color(1, 1, 1, 0)
+texture_filter = 1
+
+[node name="presents" type="Sprite2D" parent="CanvasLayer/Node2D"]
+position = Vector2(240, 126)
+texture = ExtResource("9_i2p3g")
+
+[node name="Label" type="Label" parent="CanvasLayer/Node2D"]
+custom_minimum_size = Vector2(480, 0)
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 227.0
+offset_right = 480.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "\"There is no knowledge that isnt power.\""
+label_settings = SubResource("LabelSettings_k42bj")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PopUp" type="AudioStreamPlayer2D" parent="CanvasLayer"]
+stream = ExtResource("11_kmjkh")
+
+[node name="MyName" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_jx2ny")
+}
+autoplay = "popup_and_fade"
+
+[node name="Star" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(207, 119)
+texture = ExtResource("12_mqgel")
+
+[node name="StartLabel" type="Label" parent="."]
+offset_top = 194.0
+offset_right = 480.0
+offset_bottom = 217.0
+text = "press any button"
+label_settings = SubResource("LabelSettings_cf4c7")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BgFlash" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_x6pew")
+}
+
+[node name="SoundManager" type="Node" parent="."]
+
+[node name="Start" type="AudioStreamPlayer" parent="SoundManager"]
+stream = ExtResource("18_ypa7f")
+
+[node name="Music" type="AudioStreamPlayer" parent="SoundManager"]
+stream = ExtResource("19_kjdhs")
+
+[node name="Wind" type="AudioStreamPlayer" parent="SoundManager"]
+stream = ExtResource("20_ik3l6")
+volume_db = -10.0
+
 [connection signal="mouse_entered" from="AdventureButton" to="." method="_on_adventure_button_mouse_entered"]
 [connection signal="mouse_exited" from="AdventureButton" to="." method="_on_adventure_button_mouse_exited"]
 [connection signal="pressed" from="AdventureButton" to="." method="_on_adventure_button_pressed"]
@@ -138,3 +404,4 @@ libraries = {
 [connection signal="mouse_exited" from="SandboxButton" to="." method="_on_sandbox_button_mouse_exited"]
 [connection signal="pressed" from="SandboxButton" to="." method="_on_sandbox_button_pressed"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="animation_finished" from="MyName" to="." method="_on_my_name_animation_finished"]
