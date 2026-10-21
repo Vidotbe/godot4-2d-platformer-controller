@@ -10,3 +10,9 @@ res://src/components/objects/environmental/heart_door_horizontal.tscn
 res://src/components/objects/environmental/spade_door_horizontal.tscn
 res://src/components/objects/environmental/spade_door.tscn
 res://src/components/objects/environmental/exit_door.tscn
+res://src/components/music/context_song.gd
+res://src/components/music/music_manager.gd
+res://src/components/music/song_area.gd
+res://autoload/player_data.gd
+res://src/player/player.gd
+res://src/components/ui/fur_color_button.gd

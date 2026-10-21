@@ -24,7 +24,7 @@ var selected_mode : String = "null"
 
 @onready var start_label : Label = $StartLabel
 
-@onready var star : Sprite2D = $Star
+@onready var star : Sprite2D = $AdventureButton/Star
 
 @onready var title_group : Control = $Title
 
@@ -35,8 +35,9 @@ var selected_mode : String = "null"
 
 @onready var start_sfx = $SoundManager/Start
 @onready var start_music = $SoundManager/Music
+@onready var alt_music = $SoundManager/Gone
 @onready var wind = $SoundManager/Wind
-
+@onready var button_sfx = $SoundManager/ButtonHover
 
 var random_adventure_lines : Array = [
 	"Good luck.",
@@ -56,7 +57,8 @@ var random_pre_text : Array = [
 	"There is no knowledge that is not power.",
 	"All that glitters, is not gold.",
 	"There are no accidents.",
-	"No thanks, bro."
+	"No thanks, bro.",
+	"What is better - to be born good, or to overcome your evil nature through Great Effort?"
 ]
 
 # Called when the node enters the scene tree for the first time.
@@ -85,7 +87,7 @@ func _ready():
 	fur.modulate = PlayerData.fur_color
 	eyes.modulate = PlayerData.eye_color
 	gloves.modulate = PlayerData.gloves_color
-	boots.modulate = PlayerData.gloves_color
+	boots.modulate = PlayerData.boots_color
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -102,11 +104,14 @@ func _process(delta):
 	if Input.is_action_just_pressed("start") and not start_pressed and can_start:
 		start_label.hide()
 		start_pressed = true
-		start_sfx.play()
-		start_music.play()
 		wind.stop()
 		pre_title_screen.hide()
 		bg_flash.play("flash")
+		if PlayerData.adventure_mode_complete and PlayerData.player_has_wand:
+			alt_music.play()
+		else:
+			start_sfx.play()
+			start_music.play()
 
 	if start_pressed and selected_mode == "null":
 		title_group.position.y = lerp(title_group.position.y, 0.0, 15.0 * delta)
@@ -129,7 +134,7 @@ func _process(delta):
 func _on_adventure_button_mouse_entered():
 	if selected_mode == "null":
 		description.text = "Explore the world and collect Diamonds to open The Gate."
-
+		button_sfx.play()
 
 func _on_adventure_button_mouse_exited():
 	if selected_mode == "null":
@@ -139,6 +144,7 @@ func _on_adventure_button_mouse_exited():
 func _on_sandbox_button_mouse_entered():
 	if selected_mode == "null":
 		description.text = "Infinite possibilities, the sky is the limit."
+		button_sfx.play()
 
 
 func _on_sandbox_button_mouse_exited():
@@ -151,6 +157,7 @@ func _on_adventure_button_pressed():
 		selected_mode = "Adventure"
 		PlayerData.sandbox_mode = false
 		animation_player.play("start")
+		start_sfx.play()
 		var displayed_line = random_adventure_lines.pick_random()
 		description.text = str(displayed_line)
 
@@ -160,6 +167,7 @@ func _on_sandbox_button_pressed():
 		selected_mode = "Sandbox"
 		PlayerData.sandbox_mode = true
 		animation_player.play("start")
+		start_sfx.play()
 		var displayed_line = random_sandbox_lines.pick_random()
 		description.text = str(displayed_line)
 

@@ -130,6 +130,10 @@ func _ready():
 	EventBus.door_opened.connect(reset_active_key)
 	EventBus.reset_awareness.connect(reset_awareness)
 
+	player_fur.modulate = PlayerData.fur_color
+	player_eyes.modulate = PlayerData.eye_color
+	player_gloves.modulate = PlayerData.gloves_color
+	player_boots.modulate = PlayerData.boots_color
 
 func _physics_process(delta):
 	state_machine.physics_update(delta)

@@ -8,6 +8,7 @@ extends Button
 
 func _ready():
 	if type == "Fur":
+		add_to_group("fur_color_button")
 		if default_color:
 			editor.selected_color = self
 			button_pressed = true
@@ -29,6 +30,10 @@ func _ready():
 		if default_color:
 			editor.selected_boot_color = self
 			button_pressed = true
+	
+	await get_tree().process_frame
+	update_selected_colors()
+
 
 func update_selection():
 	if type == "Fur":
@@ -67,6 +72,24 @@ func update_selection():
 			else:
 				button.button_pressed = false
 
+func update_selected_colors():
+	for furbutton in get_tree().get_nodes_in_group("fur_color_button"):
+		if furbutton.modulate == PlayerData.fur_color:
+			editor.selected_color = furbutton
+	
+	for eyebutton in get_tree().get_nodes_in_group("eye_color_button"):
+		if eyebutton.modulate == PlayerData.eye_color:
+			editor.selected_eye_color = eyebutton
+	
+	for glovebutton in get_tree().get_nodes_in_group("glove_color_button"):
+		if glovebutton.modulate == PlayerData.gloves_color:
+			editor.selected_glove_color = glovebutton
+	
+	for bootbutton in get_tree().get_nodes_in_group("boot_color_button"):
+		if bootbutton.modulate == PlayerData.boots_color:
+			editor.selected_boot_color = bootbutton
+
+	update_selection()
 
 func _on_pressed():
 	if type == "Fur":

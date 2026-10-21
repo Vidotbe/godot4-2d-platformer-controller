@@ -37,6 +37,7 @@ boot_color_button=""
 plus_buttons=""
 minus_buttons=""
 voice_clips=""
+music=""
 
 [input]
 

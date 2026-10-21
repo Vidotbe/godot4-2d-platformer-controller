@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://crfvb0g7amgfx"]
+[gd_scene load_steps=41 format=3 uid="uid://crfvb0g7amgfx"]
 
 [ext_resource type="Texture2D" uid="uid://bhaje2fqr0fsv" path="res://assets/ui/title screen/title_screen.png" id="1_mj53j"]
 [ext_resource type="Script" path="res://src/components/ui/title_screen.gd" id="1_vn40k"]
@@ -20,6 +20,8 @@
 [ext_resource type="AudioStream" uid="uid://ofu4vg4aunc7" path="res://assets/audio/sfx/title_start_sfx.wav" id="18_ypa7f"]
 [ext_resource type="AudioStream" uid="uid://4xrocrmhu0lx" path="res://assets/audio/music/title_music.ogg" id="19_kjdhs"]
 [ext_resource type="AudioStream" uid="uid://c6ye2m0jhvs2g" path="res://assets/audio/music/pretitle_music.ogg" id="20_ik3l6"]
+[ext_resource type="AudioStream" uid="uid://cvpom5ba5qvp7" path="res://assets/audio/sfx/map_hover_sfx.wav" id="21_j64fv"]
+[ext_resource type="AudioStream" uid="uid://by8wxlit1pa15" path="res://assets/audio/music/Virtue_music.ogg" id="22_680qr"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7v5hk"]
 texture = ExtResource("4_x1q7y")
@@ -56,6 +58,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector2(0, 0)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SoundManager/Music:volume_db")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="Animation" id="Animation_dw7e4"]
 resource_name = "start"
@@ -71,6 +85,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(0, 480)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SoundManager/Music:volume_db")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.96667, 2.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -80.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kalwa"]
@@ -298,6 +324,11 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_6ndp7")
 theme_override_styles/normal = SubResource("StyleBoxTexture_7rxtp")
 action_mode = 0
 
+[node name="Star" type="Sprite2D" parent="AdventureButton"]
+visible = false
+position = Vector2(85, 7)
+texture = ExtResource("12_mqgel")
+
 [node name="SandboxButton" type="Button" parent="."]
 offset_left = 282.0
 offset_top = 288.0
@@ -349,13 +380,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = 227.0
 offset_right = 480.0
-offset_bottom = 250.0
+offset_bottom = 270.0
 grow_horizontal = 2
 grow_vertical = 0
 text = "\"There is no knowledge that isnt power.\""
 label_settings = SubResource("LabelSettings_k42bj")
 horizontal_alignment = 1
-vertical_alignment = 1
+autowrap_mode = 3
 
 [node name="PopUp" type="AudioStreamPlayer2D" parent="CanvasLayer"]
 stream = ExtResource("11_kmjkh")
@@ -365,11 +396,6 @@ libraries = {
 "": SubResource("AnimationLibrary_jx2ny")
 }
 autoplay = "popup_and_fade"
-
-[node name="Star" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(207, 119)
-texture = ExtResource("12_mqgel")
 
 [node name="StartLabel" type="Label" parent="."]
 offset_top = 194.0
@@ -396,6 +422,14 @@ stream = ExtResource("19_kjdhs")
 [node name="Wind" type="AudioStreamPlayer" parent="SoundManager"]
 stream = ExtResource("20_ik3l6")
 volume_db = -10.0
+
+[node name="ButtonHover" type="AudioStreamPlayer" parent="SoundManager"]
+stream = ExtResource("21_j64fv")
+volume_db = -14.0
+pitch_scale = 1.6
+
+[node name="Gone" type="AudioStreamPlayer" parent="SoundManager"]
+stream = ExtResource("22_680qr")
 
 [connection signal="mouse_entered" from="AdventureButton" to="." method="_on_adventure_button_mouse_entered"]
 [connection signal="mouse_exited" from="AdventureButton" to="." method="_on_adventure_button_mouse_exited"]
