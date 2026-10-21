@@ -9,7 +9,7 @@ var grabbed = false
 
 @export var key_type : String = "heart"
 
-
+var exploding = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -22,6 +22,10 @@ func _process(_delta):
 		check_time_left()
 
 func check_time_left():
+	if not $Sprite2D.visible:
+		last_sec.stop()
+		ticking.stop()
+		return
 	if timer.time_left > 1.0:
 		if not ticking.playing:
 			ticking.play()
@@ -35,6 +39,7 @@ func player_died():
 	if grabbed:
 		_on_timer_timeout()
 
+
 func _on_body_entered(body):
 	if not grabbed and body.active_key == null:
 		grabbed = true
@@ -44,8 +49,16 @@ func _on_body_entered(body):
 
 func despawn_key():
 	if grabbed:
-		queue_free()
+		_on_timer_timeout()
 
 func _on_timer_timeout():
-	EventBus.emit_signal("key_time_limit")
-	queue_free()
+	if not exploding:
+		exploding = true
+		EventBus.emit_signal("key_time_limit")
+		$Explode.show()
+		$Explode.play("default")
+		$Explosion.play()
+		$Sprite2D.hide()
+		$Flash.hide()
+		await get_tree().create_timer(1.5, false).timeout
+		queue_free()

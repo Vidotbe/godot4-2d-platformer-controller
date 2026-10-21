@@ -145,9 +145,9 @@ func _process(delta):
 	check_move_direction(delta)
 
 func reset_active_key():
+	active_key.player_died()
 	active_key = null
-	keyexplode_sfx.play()
-	$KeyFollow/Explode.play("default")
+
 
 func check_move_direction(delta):
 	if move_direction == 1: #RIGHT
@@ -200,6 +200,8 @@ func reset_awareness():
 
 func start_fast_travel(target : Vector2):
 	fast_travel_target = target
+	if not just_died:
+		keyexplode_sfx.play()
 	is_travelling = true
 	velocity.x = 0
 	velocity.y = 0
@@ -211,7 +213,7 @@ func warp_effect():
 	if warp_effect_animation.is_playing():
 		warp_effect_animation.stop()
 	warp_effect_animation.play()
-	keyexplode_sfx.play()
+
 
 func set_timers():
 	air_dash_cooldown_timer.wait_time = air_dash_cooldown
@@ -246,12 +248,18 @@ func get_air_dash_direction():
 func respawn():
 	if not is_invincible:
 		just_died = true
+		if active_key != null:
+			reset_active_key()
 		EventBus.emit_signal("player_respawn")
-		global_position = respawn_position
+		start_fast_travel(respawn_position)
+		visible = false
 		respawn_sfx.play()
-		$Respawn.play("respawn")
 		await get_tree().create_timer(0.1, false).timeout
 		just_died = false
+
+func respawn_effect():
+	show()
+	$Respawn.play("respawn")
 
 func _on_item_collected(item_type, _item_value):
 	if item_type == "diamond":

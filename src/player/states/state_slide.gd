@@ -5,7 +5,7 @@ func enter():
 	pass
 
 func exit():
-	pass
+	player.reset_standing_shape()
 
 func physics_update(delta):
 	if player.is_on_floor():
