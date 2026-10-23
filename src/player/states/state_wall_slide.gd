@@ -75,3 +75,5 @@ func check_wall_slide_animation():
 		player.animation.travel("wall_slide")
 	elif player.velocity.y > player.wall_slide_up_threshold and player.velocity.y > player.wall_slide_down_threshold:
 		player.animation.travel("wall_slide_down")
+	else:
+		player.animation.travel("wall_slide")

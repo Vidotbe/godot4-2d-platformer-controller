@@ -11,7 +11,7 @@ var times_clicked : float = 0
 var button_held = false
 var held_timer = 0.0
 
-var hold_limit = 0.4
+var hold_limit = 0.2
 
 var hold_limit_threshold = 0.1
 

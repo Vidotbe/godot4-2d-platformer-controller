@@ -48,6 +48,7 @@ func _on_body_entered(body):
 		$Timer.start()
 
 func despawn_key():
+	await get_tree().process_frame
 	if grabbed:
 		_on_timer_timeout()
 

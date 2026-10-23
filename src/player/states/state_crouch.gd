@@ -2,7 +2,7 @@ extends State
 
 
 func enter():
-	pass
+	player.apply_crouch_shape()
 
 func exit():
 	player.reset_standing_shape()

@@ -1,5 +1,7 @@
-res://src/components/music
+res://assets/tilemaps/environment/resources
 res://assets/fonts
+res://assets/ui/icons
+res://src/components/music
 res://src/components/ui
 res://src/player/states
 res://assets/ui/console
@@ -11,6 +13,5 @@ res://assets/sprites/environmental
 C:/Users/USUARIO/Desktop
 res://assets/ui/cursor
 res://assets/tilemaps/environment/textures
-res://assets/tilemaps/environment/resources
 res://assets/sprites/player
 res://src/player

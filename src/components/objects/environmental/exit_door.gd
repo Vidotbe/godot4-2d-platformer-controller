@@ -9,8 +9,7 @@ func _ready():
 	EventBus.on_all_diamonds.connect(open_door)
 
 func open_door():
-	open = true
-	door_sprite.frame = 1
+	pass
 
 func _on_body_entered(_body):
 	if open:

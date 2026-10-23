@@ -47,10 +47,11 @@ var random_adventure_lines : Array = [
 ]
 
 var random_sandbox_lines : Array = [
-	"Go nuts",
+	"Go nuts.",
 	"Ideal for testing.",
 	"Sweet dreams, little bunny.",
-	"You need a story?"
+	"You need a story?",
+	"Back to bed?"
 ]
 
 var random_pre_text : Array = [
@@ -58,7 +59,9 @@ var random_pre_text : Array = [
 	"All that glitters, is not gold.",
 	"There are no accidents.",
 	"No thanks, bro.",
-	"What is better - to be born good, or to overcome your evil nature through Great Effort?"
+	"What is better - to be born good, or to overcome your evil nature through Great Effort?",
+	"Don't let the corruption of others be an excuse for your own."
+	
 ]
 
 # Called when the node enters the scene tree for the first time.

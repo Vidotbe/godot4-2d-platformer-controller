@@ -13,7 +13,10 @@ config_version=5
 config/name="BunnyTop"
 run/main_scene="res://src/components/ui/title_screen.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
-config/icon="res://icon.svg"
+boot_splash/bg_color=Color(0.0784314, 0.0784314, 0.0784314, 1)
+boot_splash/show_image=false
+boot_splash/use_filter=false
+config/icon="res://assets/ui/icons/icon_upscaled.png"
 
 [autoload]
 
@@ -24,6 +27,7 @@ PlayerData="*res://autoload/player_data.gd"
 
 window/size/viewport_width=480
 window/size/viewport_height=270
+window/size/resizable=false
 window/stretch/mode="canvas_items"
 
 [global_group]
@@ -120,3 +124,7 @@ start={
 2d_physics/layer_3="collectible"
 2d_physics/layer_4="one_way_platforms"
 2d_physics/layer_5="hazards"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0

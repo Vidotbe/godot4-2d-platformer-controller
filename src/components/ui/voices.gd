@@ -2,7 +2,7 @@ extends Area2D
 
 var first_interaction = true
 
-var times_died = 0
+var times_died = 7
 
 @onready var voice_player : AnimationPlayer = $VoicePlayer
 
@@ -34,6 +34,7 @@ func request_death_voice():
 	if player_in_area and activated:
 		for voice : AudioStreamPlayer2D in get_tree().get_nodes_in_group("voice_clips"):
 			voice.playing = false
+			voice_player.pause()
 		times_died += 1
 		var animation_name = "death_" + str(times_died)
 		if voice_player.has_animation(animation_name):

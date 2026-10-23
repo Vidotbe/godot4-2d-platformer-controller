@@ -19,6 +19,7 @@ func _ready():
 	else:
 		if PlayerData.player_has_wand:
 			patch.enabled = true
+			restore()
 
 func _process(delta):
 	if player.global_position.y < -2300 and player.global_position.x < 0:

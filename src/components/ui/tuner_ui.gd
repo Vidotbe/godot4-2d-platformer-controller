@@ -28,7 +28,7 @@ extends CanvasLayer
 
 
 
-@export var categories : Array = ["Jumping", "Running", "Wall Slide", "Air Dash", "Skills", "Adjustments"]
+@export var categories : Array = ["Jumping", "Running", "Skills", "Adjustments"]
 var index = 0
 
 @onready var category_container = $CategoryContainer
@@ -41,6 +41,9 @@ var index = 0
 
 @onready var capacity_label : Label = $Capacity/Amount
 @onready var money_label : Label = $Money/Amount
+
+@onready var window_number : Label = $WindowNumber
+
 
 var default_values : Dictionary = {}
 
@@ -82,14 +85,19 @@ var capacity_used = 0
 @onready var plus_hover_texture : Texture2D = preload("res://assets/ui/console/plus_button_hover.png")
 @onready var plus_press_texture : Texture2D = preload("res://assets/ui/console/plus_button_press.png")
 
+@onready var checkbox_unchecked_texture : String = "res://assets/ui/console/skill_button_normal.png"
+@onready var checkbox_checked_texture : String = "res://assets/ui/console/skill_button_pressed.png"
+
+
 
 func _ready():
 	if PlayerData.sandbox_mode:
 		maximum_capacity = 1000
-		total_money = 1000
-		money_label.text = "1000"
+		categories += ["Wall Slide", "Air Dash", "Themes"]
 
 	update_ui()
+
+	update_window_number()
 
 	update_capacity()
 
@@ -99,11 +107,13 @@ func _ready():
 	
 	set_button_texture()
 	
+	set_checkbox_texture()
+	
 	EventBus.item_collected.connect(_on_item_collected)
 
 	EventBus.skill_bought.connect(_on_skill_bought)
 
-
+	
 
 	#JUMPING
 	setup_hover($CategoryContainer/Jumping/TopSliders/Container/VBoxContainer/TopSliders/VBoxContainer2/Label, "Tune maximum jump height.")
@@ -155,6 +165,33 @@ func _ready():
 	setup_hover($CategoryContainer/Adjustments/Invincibility, "Does what it says, you baby.")
 	setup_hover($CategoryContainer/Adjustments/Invincibility/Label, "Does what it says, you baby.", -16)
 
+func _input(event):
+	if event is InputEventKey and event.pressed and active:
+		if event.keycode >= KEY_1 and event.keycode <= KEY_9:
+			var pressed_number = event.keycode - KEY_1
+		
+			if pressed_number < categories.size():
+				index = pressed_number
+				category_sfx.play()
+				update_ui()
+				update_window_number()
+
+		if event.keycode >= KEY_KP_1 and event.keycode <= KEY_KP_9:
+			var pressed_number = event.keycode - KEY_KP_1
+		
+			if pressed_number < categories.size():
+				index = pressed_number
+				category_sfx.play()
+				update_ui()
+				update_window_number()
+
+func add_category(category_to_add : String):
+	if category_to_add != "null":
+		categories += [category_to_add]
+		update_window_number()
+
+func update_window_number():
+	window_number.text = str(index + 1) + "/" + str(categories.size())
 
 func store_default_values(parent_node : Node):
 	for child in parent_node.get_children():
@@ -193,7 +230,10 @@ func set_slider_texture():
 		if slider is HSlider:
 			slider.add_theme_stylebox_override("slider", slider_empty)
 			slider.add_theme_stylebox_override("grabber_area", style_box)
+			slider.add_theme_stylebox_override("grabber_area_highlight", style_box)
 			slider.add_theme_icon_override("grabber_disabled", grabber)
+			slider.add_theme_icon_override("grabber", grabber)
+			slider.add_theme_icon_override("grabber_highlight", grabber)
 
 func find_sliders(node : Node):
 	var sliders : Array = []
@@ -234,6 +274,30 @@ func set_button_texture():
 		plus_button.add_theme_stylebox_override("hover", plus_hover)
 		plus_button.add_theme_stylebox_override("pressed", plus_press)
 
+
+func set_checkbox_texture():
+	var unchecked_texture : Texture2D = load(checkbox_unchecked_texture)
+	var checked_texture : Texture2D = load(checkbox_checked_texture)
+
+
+
+	var checkbuttons = find_checkbuttons(self)
+
+	for box in checkbuttons:
+		if box is CheckBox:
+			box.add_theme_icon_override("unchecked", unchecked_texture)
+			box.add_theme_icon_override("checked", checked_texture)
+
+
+func find_checkbuttons(node : Node):
+	var checkbuttons : Array = []
+	for child in node.get_children(true):
+		if child is CheckBox:
+			checkbuttons.append(child)
+		if child.get_child_count() > 0:
+			checkbuttons.append_array(find_checkbuttons(child))
+	return checkbuttons
+
 func _process(delta):
 	if Input.is_action_just_pressed("console"):
 		toggle_console()
@@ -241,9 +305,11 @@ func _process(delta):
 	if active:
 		if Input.is_action_just_pressed("next"):
 			next_button.pressed.emit()
+			update_window_number()
 		
 		if Input.is_action_just_pressed("previous"):
 			previous_button.pressed.emit()
+			update_window_number()
 
 	if active:
 		offset.y = lerp(offset.y, 0.0, console_speed_up * delta)

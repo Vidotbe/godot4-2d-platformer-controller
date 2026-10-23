@@ -17,6 +17,8 @@ var map_active = false
 
 @onready var buy_sfx : AudioStreamPlayer = $buy_sfx
 
+@onready var notif : AnimationPlayer = $Notif
+
 @export var diamond_count = 0
 var max_diamonds = 50
 
@@ -34,6 +36,8 @@ var time_to_go = false
 func _ready():
 	EventBus.item_collected.connect(_on_item_collected)
 	EventBus.update_checkpoint_status.connect(register_checkpoints)
+	EventBus.on_all_diamonds.connect(notify)
+
 
 	var base_size = Vector2i(480, 270)
 	var scale_factor = 3
@@ -47,7 +51,6 @@ func _ready():
 
 	if PlayerData.sandbox_mode:
 		diamond_count = 1000
-		money_count = 1000
 		wand_button.show()
 		await get_tree().process_frame
 		EventBus.emit_signal("reset_awareness")
@@ -73,6 +76,8 @@ func _process(delta):
 		time_to_go = true
 		EventBus.emit_signal("on_all_diamonds")
 
+func notify():
+	notif.play("start")
 
 func register_checkpoints():
 	checkpoints.clear()

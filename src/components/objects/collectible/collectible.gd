@@ -13,6 +13,7 @@ func _ready():
 		await get_tree().create_timer(0.5, false).timeout
 		queue_free()
 
+
 func _process(delta):
 	if coming_from_chest:
 		global_position.y += chest_up * delta

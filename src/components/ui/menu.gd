@@ -26,12 +26,12 @@ func _on_main_menu_pressed():
 
 func _on_fullscreen_pressed():
 	var current_mode = DisplayServer.window_get_mode()
-	
+
 	if current_mode == DisplayServer.WINDOW_MODE_WINDOWED:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 	else:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
-
+		
 
 func _on_menu_button_pressed():
 	if not active:

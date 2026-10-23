@@ -145,7 +145,7 @@ func _process(delta):
 	check_move_direction(delta)
 
 func reset_active_key():
-	active_key.player_died()
+	await get_tree().process_frame
 	active_key = null
 
 
@@ -246,7 +246,7 @@ func get_air_dash_direction():
 	return dash_direction.normalized()
 
 func respawn():
-	if not is_invincible:
+	if not is_invincible and not just_died:
 		just_died = true
 		if active_key != null:
 			reset_active_key()
