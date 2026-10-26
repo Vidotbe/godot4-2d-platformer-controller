@@ -60,8 +60,8 @@ var random_pre_text : Array = [
 	"There are no accidents.",
 	"No thanks, bro.",
 	"What is better - to be born good, or to overcome your evil nature through Great Effort?",
-	"Don't let the corruption of others be an excuse for your own."
-	
+	"Don't let the corruption of others be an excuse for your own.",
+	"He never realized changing his life was where the magic happened."
 ]
 
 # Called when the node enters the scene tree for the first time.
@@ -79,6 +79,10 @@ func _ready():
 	quote.text = "\"" + str(random_pre_text.pick_random()) + "\""
 
 	if PlayerData.adventure_mode_complete:
+		if PlayerData.times_died == 0:
+			star.show()
+			star.modulate = Color(0.706, 0.125, 0.165)
+			return
 		if PlayerData.player_has_wand:
 			game_title.frame = 1
 			eyes.frame = 1
@@ -86,6 +90,7 @@ func _ready():
 			star.modulate = Color.BLACK
 		else:
 			star.show()
+			star.modulate = Color(1, 0.988, 0.251)
 
 	fur.modulate = PlayerData.fur_color
 	eyes.modulate = PlayerData.eye_color

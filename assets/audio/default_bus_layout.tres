@@ -1,0 +1,20 @@
+[gd_resource type="AudioBusLayout" load_steps=3 format=3 uid="uid://l3xm0lkj18wr"]
+
+[sub_resource type="AudioEffectLowPassFilter" id="AudioEffectLowPassFilter_ilaec"]
+resource_name = "LowPassFilter"
+
+[sub_resource type="AudioEffectPitchShift" id="AudioEffectPitchShift_1iq6b"]
+resource_name = "PitchShift"
+pitch_scale = 0.6
+
+[resource]
+bus/1/name = &"Dialogue"
+bus/1/solo = false
+bus/1/mute = false
+bus/1/bypass_fx = false
+bus/1/volume_db = 0.0
+bus/1/send = &"Master"
+bus/1/effect/0/effect = SubResource("AudioEffectLowPassFilter_ilaec")
+bus/1/effect/0/enabled = true
+bus/1/effect/1/effect = SubResource("AudioEffectPitchShift_1iq6b")
+bus/1/effect/1/enabled = true

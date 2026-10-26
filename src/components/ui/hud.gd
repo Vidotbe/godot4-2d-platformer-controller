@@ -33,11 +33,13 @@ var map_speed_down = 1500
 
 var time_to_go = false
 
+var challenge_position = Vector2(-2407, 1944)
+
 func _ready():
 	EventBus.item_collected.connect(_on_item_collected)
 	EventBus.update_checkpoint_status.connect(register_checkpoints)
 	EventBus.on_all_diamonds.connect(notify)
-
+	EventBus.start_challenge.connect(send_to_challenge)
 
 	var base_size = Vector2i(480, 270)
 	var scale_factor = 3
@@ -72,6 +74,10 @@ func _process(delta):
 		map.position.y = move_toward(map.position.y, -170, map_speed_down * delta)
 
 
+	if PlayerData.in_cutscene:
+		map_active = false
+		wand_button.hide()
+
 	if diamond_count == max_diamonds and not time_to_go:
 		time_to_go = true
 		EventBus.emit_signal("on_all_diamonds")
@@ -104,6 +110,11 @@ func register_checkpoints():
 					else:
 						node.self_modulate = Color.RED
 
+
+func send_to_challenge():
+	player.start_fast_travel(challenge_position)
+
+
 func _on_item_collected(item_type: String, item_value: int):
 	if item_type == "diamond":
 		diamond_count += item_value
@@ -124,6 +135,8 @@ func update_ui():
 
 
 func _on_wand_pressed():
+	if PlayerData.in_cutscene:
+		return
 	wand_sfx.play()
 	if map_active:
 		map_active = false
@@ -132,6 +145,8 @@ func _on_wand_pressed():
 
 
 func _on_map_button_pressed(ButtonID):
+	if PlayerData.in_cutscene:
+		return
 	if not checkpoints.has(ButtonID):
 		return
 	

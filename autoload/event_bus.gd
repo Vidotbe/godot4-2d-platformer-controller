@@ -25,6 +25,11 @@ signal update_checkpoint_status
 @warning_ignore("unused_signal")
 signal reset_awareness
 
-
 @warning_ignore("unused_signal")
 signal on_all_diamonds
+
+@warning_ignore("unused_signal")
+signal start_challenge
+
+@warning_ignore("unused_signal")
+signal diamond_key_get

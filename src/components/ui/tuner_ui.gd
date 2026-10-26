@@ -36,6 +36,7 @@ var index = 0
 @onready var previous_button = $Category/PreviousButton
 @onready var next_button = $Category/NextButton
 
+@onready var console_text : Label = $Label
 
 @onready var description_label : Label = $DescriptionLabel 
 
@@ -318,14 +319,27 @@ func _process(delta):
 	else:
 		offset.y = move_toward(offset.y, 102, console_speed_down * delta)
 
+	if PlayerData.in_cutscene and console_text.text == "  [C]onsole":
+		active = false
+		console_text.text = "  [C]onsole DISABLED"
+		return
+
+	if not PlayerData.in_cutscene and console_text.text != "  [C]onsole":
+		console_text.text = "  [C]onsole"
+
 func toggle_console():
+	if PlayerData.in_cutscene:
+		denied_sfx.play()
+		return
 	if active:
 		$DescriptionLabel.hide()
 		active = false
 		console_close_sfx.play()
+
 	else:
 		active = true
 		console_open_sfx.play()
+
 
 func setup_hover(label : Control, description : String, HorizontalOffset : int = 7, VerticalOffset : int = 54):
 	if not label: return

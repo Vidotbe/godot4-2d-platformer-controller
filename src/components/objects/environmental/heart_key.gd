@@ -18,7 +18,7 @@ func _ready():
 	EventBus.player_respawn.connect(player_died)
 
 func _process(_delta):
-	if grabbed:
+	if grabbed and key_type != "diamond":
 		check_time_left()
 
 func check_time_left():
@@ -46,6 +46,8 @@ func _on_body_entered(body):
 		body.red_sfx.play()
 		body.active_key = self
 		$Timer.start()
+		if key_type == "diamond":
+			EventBus.emit_signal("diamond_key_get")
 
 func despawn_key():
 	await get_tree().process_frame
@@ -53,13 +55,14 @@ func despawn_key():
 		_on_timer_timeout()
 
 func _on_timer_timeout():
-	if not exploding:
-		exploding = true
-		EventBus.emit_signal("key_time_limit")
-		$Explode.show()
-		$Explode.play("default")
-		$Explosion.play()
-		$Sprite2D.hide()
-		$Flash.hide()
-		await get_tree().create_timer(1.5, false).timeout
-		queue_free()
+	if not key_type != "diamond":
+		if not exploding:
+			exploding = true
+			EventBus.emit_signal("key_time_limit")
+			$Explode.show()
+			$Explode.play("default")
+			$Explosion.play()
+			$Sprite2D.hide()
+			$Flash.hide()
+			await get_tree().create_timer(1.5, false).timeout
+			queue_free()

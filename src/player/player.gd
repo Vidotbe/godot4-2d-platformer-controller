@@ -116,7 +116,7 @@ var active_key : Area2D = null
 @onready var player_fur : Sprite2D = $Sprite2D
 @onready var player_gloves : Sprite2D = $Gloves
 @onready var player_boots : Sprite2D = $Boots
-
+ 
 
 var fast_travel_target : Vector2 = Vector2(0,0)
 var is_travelling = false
@@ -129,6 +129,8 @@ func _ready():
 	EventBus.key_time_limit.connect(reset_active_key)
 	EventBus.door_opened.connect(reset_active_key)
 	EventBus.reset_awareness.connect(reset_awareness)
+	EventBus.start_challenge.connect(set_challenge_camera)
+
 
 	player_fur.modulate = PlayerData.fur_color
 	player_eyes.modulate = PlayerData.eye_color
@@ -151,7 +153,7 @@ func reset_active_key():
 
 func check_move_direction(delta):
 	if move_direction == 1: #RIGHT
-		$Sprite2D.flip_h = false
+		player_fur.flip_h = false
 		player_eyes.flip_h = false
 		player_gloves.flip_h = false
 		player_boots.flip_h = false
@@ -163,7 +165,7 @@ func check_move_direction(delta):
 			key_follow.position.x = move_toward(key_follow.position.x, -12, acceleration * delta)
 
 	elif move_direction == -1: #LEFT
-		$Sprite2D.flip_h = true
+		player_fur.flip_h = true
 		player_eyes.flip_h = true
 		player_gloves.flip_h = true
 		player_boots.flip_h = true
@@ -247,6 +249,7 @@ func get_air_dash_direction():
 
 func respawn():
 	if not is_invincible and not just_died:
+		PlayerData.times_died += 1
 		just_died = true
 		if active_key != null:
 			reset_active_key()
@@ -260,6 +263,13 @@ func respawn():
 func respawn_effect():
 	show()
 	$Respawn.play("respawn")
+
+func set_challenge_camera():
+	PlayerData.in_cutscene = false
+	camera.limit_left = -2648
+	camera.limit_right = -2648 + 480
+	camera.limit_top = 2056 - 270
+	camera.limit_bottom = 2056
 
 func _on_item_collected(item_type, _item_value):
 	if item_type == "diamond":

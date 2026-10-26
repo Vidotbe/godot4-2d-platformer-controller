@@ -3,6 +3,13 @@ extends State
 var travel_speed = 500
 var respawn_speed = 10.0
 
+
+func _ready():
+	EventBus.start_challenge.connect(speed_up)
+
+func speed_up():
+	travel_speed = 1000
+
 func enter():
 	player.set_collision_layer_value(1, false)
 	player.set_collision_mask_value(2, false)
