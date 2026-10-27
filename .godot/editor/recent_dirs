@@ -1,9 +1,10 @@
+res://src/components/objects/collectible
+res://src/player
 res://src/components/objects/environmental
 res://assets/fonts
 res://assets/tilemaps/environment/resources
 res://assets/audio
 res://assets/tilemaps/environment/textures
-res://src/components/objects/collectible
 res://assets/ui/icons
 res://src/components/music
 res://src/components/ui
@@ -15,4 +16,3 @@ res://assets/sprites/environmental
 C:/Users/USUARIO/Desktop
 res://assets/ui/cursor
 res://assets/sprites/player
-res://src/player

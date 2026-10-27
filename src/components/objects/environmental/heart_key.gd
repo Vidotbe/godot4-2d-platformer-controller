@@ -11,11 +11,15 @@ var grabbed = false
 
 var exploding = false
 
+@onready var keysprite : Sprite2D = $Sprite2D
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	timer.wait_time = time_limit
 	EventBus.door_opened.connect(despawn_key)
 	EventBus.player_respawn.connect(player_died)
+	EventBus.item_collected.connect(add_shard)
+
 
 func _process(_delta):
 	if grabbed and key_type != "diamond":
@@ -37,7 +41,8 @@ func check_time_left():
 
 func player_died():
 	if grabbed:
-		_on_timer_timeout()
+		if key_type != "diamond":
+			_on_timer_timeout()
 
 
 func _on_body_entered(body):
@@ -48,11 +53,19 @@ func _on_body_entered(body):
 		$Timer.start()
 		if key_type == "diamond":
 			EventBus.emit_signal("diamond_key_get")
+			keysprite.frame = 1
+
 
 func despawn_key():
 	await get_tree().process_frame
 	if grabbed:
 		_on_timer_timeout()
+
+func add_shard(item_type: String, item_value: int):
+	if item_type == "key_shard":
+		if key_type == "diamond":
+			keysprite.frame += item_value
+			EventBus.emit_signal("next_challenge")
 
 func _on_timer_timeout():
 	if not key_type != "diamond":

@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://b0aqb0mmwynny"]
+
+[ext_resource type="Script" path="res://src/components/objects/collectible/collectible.gd" id="1_yqohb"]
+[ext_resource type="Texture2D" uid="uid://xr4yjj14ds1w" path="res://assets/sprites/items/key_shard.png" id="2_1ybge"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v2jwp"]
+size = Vector2(12, 18)
+
+[node name="KeyShard" type="Area2D"]
+collision_layer = 4
+script = ExtResource("1_yqohb")
+item_type = "key_shard"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_1ybge")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_v2jwp")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

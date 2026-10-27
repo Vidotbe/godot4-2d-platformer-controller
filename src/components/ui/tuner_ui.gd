@@ -114,7 +114,9 @@ func _ready():
 
 	EventBus.skill_bought.connect(_on_skill_bought)
 
-	
+	EventBus.diamond_key_get.connect(_on_reset_variables_pressed)
+
+	EventBus.next_challenge.connect(_on_reset_variables_pressed)
 
 	#JUMPING
 	setup_hover($CategoryContainer/Jumping/TopSliders/Container/VBoxContainer/TopSliders/VBoxContainer2/Label, "Tune maximum jump height.")

@@ -30,6 +30,8 @@ func physics_update(delta):
 		player.is_travelling = false
 		if not player.visible:
 			player.respawn_effect()
+			if player.active_key:
+				player.active_key.show()
 		transitioned.emit(self, "Fall")
 
 

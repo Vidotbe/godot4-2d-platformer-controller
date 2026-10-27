@@ -22,4 +22,7 @@ func _on_body_entered(body):
 	if not coming_from_chest:
 		if body is Player:
 			EventBus.item_collected.emit(item_type, item_value)
-			queue_free()
+			if item_type != "key_shard":
+				queue_free()
+			else:
+				pass

@@ -186,13 +186,14 @@ z_index = 2
 texture_filter = 1
 collision_layer = 0
 script = ExtResource("1_oh5cb")
-time_limit = 180.0
+time_limit = 300.0
 key_type = "diamond"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_nw63m")
 position = Vector2(0, -14)
 texture = ExtResource("2_m0axq")
+hframes = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -12)

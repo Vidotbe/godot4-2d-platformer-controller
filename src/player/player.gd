@@ -207,8 +207,10 @@ func start_fast_travel(target : Vector2):
 	is_travelling = true
 	velocity.x = 0
 	velocity.y = 0
-	if active_key != null:
+	if active_key != null and active_key.key_type != "diamond":
 		reset_active_key()
+	if active_key != null and active_key.key_type == "diamond":
+		active_key.hide()
 	state_machine.child_transitioned(state_machine.current_state, "Fast Travel")
 
 func warp_effect():
@@ -251,8 +253,10 @@ func respawn():
 	if not is_invincible and not just_died:
 		PlayerData.times_died += 1
 		just_died = true
-		if active_key != null:
+		if active_key != null and active_key.key_type != "diamond":
 			reset_active_key()
+		if active_key != null and active_key.key_type == "diamond":
+			active_key.hide()
 		EventBus.emit_signal("player_respawn")
 		start_fast_travel(respawn_position)
 		visible = false
@@ -266,6 +270,7 @@ func respawn_effect():
 
 func set_challenge_camera():
 	PlayerData.in_cutscene = false
+	hide()
 	camera.limit_left = -2648
 	camera.limit_right = -2648 + 480
 	camera.limit_top = 2056 - 270

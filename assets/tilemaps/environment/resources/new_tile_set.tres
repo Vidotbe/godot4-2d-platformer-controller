@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=40 format=3 uid="uid://dp2ehwtqr1qxp"]
+[gd_resource type="TileSet" load_steps=41 format=3 uid="uid://dp2ehwtqr1qxp"]
 
 [ext_resource type="Texture2D" uid="uid://oum00gdqo61y" path="res://assets/tilemaps/environment/textures/main_tileset.png" id="1_iuscm"]
 [ext_resource type="PackedScene" uid="uid://c4nwq5m3kcple" path="res://src/components/objects/collectible/collectible.tscn" id="2_1j1lf"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://c133uan7yrjm3" path="res://src/components/objects/environmental/spring_down.tscn" id="5_d8ogx"]
 [ext_resource type="PackedScene" uid="uid://b2p2jrc4rtkn8" path="res://src/components/objects/collectible/ultra_money.tscn" id="5_v8ghe"]
 [ext_resource type="PackedScene" uid="uid://c53nhucvs3u1e" path="res://src/components/objects/environmental/spring_left.tscn" id="6_one8i"]
+[ext_resource type="PackedScene" uid="uid://b0aqb0mmwynny" path="res://src/components/objects/collectible/key_shard.tscn" id="6_qcjnx"]
 [ext_resource type="PackedScene" uid="uid://yhthh41irujy" path="res://src/components/objects/environmental/diamond_key.tscn" id="6_sbhri"]
 [ext_resource type="PackedScene" uid="uid://2yxee6iwj7mn" path="res://src/components/objects/environmental/spring_right.tscn" id="7_s6smd"]
 [ext_resource type="PackedScene" uid="uid://c8bpy1bsfojb5" path="res://src/components/objects/environmental/fan.tscn" id="8_gox0l"]
@@ -92,6 +93,7 @@ scenes/1/scene = ExtResource("2_1j1lf")
 scenes/2/scene = ExtResource("3_d1aof")
 scenes/3/scene = ExtResource("4_vc0hd")
 scenes/4/scene = ExtResource("5_v8ghe")
+scenes/5/scene = ExtResource("6_qcjnx")
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_u7vms"]
 resource_name = "Diamond Key"

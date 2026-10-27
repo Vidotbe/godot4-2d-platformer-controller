@@ -15,9 +15,10 @@ var reveal_speed = 1000
 
 @onready var time_limit_graphic : Node2D = $ChallengeSection/CanvasLayer/TimeLimit
 @onready var time_left_label : Label = $ChallengeSection/CanvasLayer/TimeLimit/TimeLeft
-var challenge_time_limit : float = 180
+var challenge_time_limit : float = 300
 var timer_started = false
 
+@export var challenge_test = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -29,6 +30,13 @@ func _ready():
 	PlayerData.times_died = 0
 	
 
+	if challenge_test:
+		EventBus.emit_signal("start_challenge")
+		PlayerData.in_challenge = true
+
+	else:
+		PlayerData.in_challenge = false
+
 	if PlayerData.sandbox_mode:
 		patch.enabled = true
 	else:
@@ -36,7 +44,7 @@ func _ready():
 			patch.enabled = true
 			restore()
 
-	PlayerData.in_challenge = false
+
 
 func _process(delta):
 	if not PlayerData.in_challenge:

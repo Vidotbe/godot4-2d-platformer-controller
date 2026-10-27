@@ -33,3 +33,6 @@ signal start_challenge
 
 @warning_ignore("unused_signal")
 signal diamond_key_get
+
+@warning_ignore("unused_signal")
+signal next_challenge
