@@ -1,7 +1,7 @@
+res://assets/fonts
 res://src/components/objects/collectible
 res://src/player
 res://src/components/objects/environmental
-res://assets/fonts
 res://assets/tilemaps/environment/resources
 res://assets/audio
 res://assets/tilemaps/environment/textures

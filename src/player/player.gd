@@ -218,7 +218,6 @@ func warp_effect():
 		warp_effect_animation.stop()
 	warp_effect_animation.play()
 
-
 func set_timers():
 	air_dash_cooldown_timer.wait_time = air_dash_cooldown
 	air_dash_duration_timer.wait_time = air_dash_duration
@@ -253,6 +252,16 @@ func respawn():
 	if not is_invincible and not just_died:
 		PlayerData.times_died += 1
 		just_died = true
+		if PlayerData.in_challenge:
+			if PlayerData.challenge_lives > 1:
+				EventBus.emit_signal("next_challenge_fail")
+				PlayerData.challenge_lives -= 1
+			else:
+				EventBus.emit_signal("start_challenge")
+			await get_tree().create_timer(0.1, false).timeout
+			just_died = false
+			return
+
 		if active_key != null and active_key.key_type != "diamond":
 			reset_active_key()
 		if active_key != null and active_key.key_type == "diamond":
@@ -269,6 +278,7 @@ func respawn_effect():
 	$Respawn.play("respawn")
 
 func set_challenge_camera():
+	active_key = null
 	PlayerData.in_cutscene = false
 	hide()
 	camera.limit_left = -2648

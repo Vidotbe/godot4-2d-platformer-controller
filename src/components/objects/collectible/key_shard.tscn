@@ -7,6 +7,7 @@
 size = Vector2(12, 18)
 
 [node name="KeyShard" type="Area2D"]
+position = Vector2(4, 0)
 collision_layer = 4
 script = ExtResource("1_yqohb")
 item_type = "key_shard"

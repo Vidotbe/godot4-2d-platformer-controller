@@ -15,7 +15,7 @@ var reveal_speed = 1000
 
 @onready var time_limit_graphic : Node2D = $ChallengeSection/CanvasLayer/TimeLimit
 @onready var time_left_label : Label = $ChallengeSection/CanvasLayer/TimeLimit/TimeLeft
-var challenge_time_limit : float = 300
+var challenge_time_limit : float = 240
 var timer_started = false
 
 @export var challenge_test = false
@@ -55,6 +55,12 @@ func _process(delta):
 			player.camera.limit_left = -3207
 
 
+	if PlayerData.in_challenge:
+		if player.global_position.y < -76 and player.global_position.y > -300:
+			player.camera.limit_left = -376
+			player.camera.limit_right = 618
+
+
 	if level_reveal.offset.y >= -800:
 		level_reveal.offset.y = move_toward(level_reveal.offset.y, -800, reveal_speed * delta)
 	if level_reveal.offset.y == -800:
@@ -66,6 +72,9 @@ func _process(delta):
 		if challenge_time_limit < 0:
 			challenge_time_limit = 0
 			timer_started = false
+			EventBus.emit_signal("start_challenge")
+			challenge_time_limit = 240
+	
 	
 		@warning_ignore("integer_division")
 		var minutes = int(challenge_time_limit) / 60
@@ -85,6 +94,9 @@ func all_diamonds():
 func start_challenge():
 	background.hide()
 	black_background.show()
+	time_limit_graphic.hide()
+	timer_started = false
+	challenge_time_limit = 240
 
 func start_timer():
 	time_limit_graphic.show()

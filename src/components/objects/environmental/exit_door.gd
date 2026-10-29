@@ -11,7 +11,7 @@ func _ready():
 func open_door():
 	pass
 
-func _on_body_entered(_body):
-	if open:
+func _on_body_entered(body):
+	if body.active_key != null and body.active_key.key_type == "diamond":
 		PlayerData.adventure_mode_complete = true
 		get_tree().call_deferred("change_scene_to_file", "res://src/components/ui/title_screen.tscn")

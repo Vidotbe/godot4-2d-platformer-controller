@@ -15,3 +15,5 @@ var browser_mode = false
 var times_died = 0
 
 var in_challenge = false
+
+var challenge_lives = 4

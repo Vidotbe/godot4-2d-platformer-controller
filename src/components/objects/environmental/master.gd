@@ -4,6 +4,8 @@ extends Node2D
 
 @export var speech : Label = null
 
+@onready var master_animation : AnimationPlayer = $MasterAnimation
+
 var speech_lines : Array = [
 	"So you've come.",
 	"I've been watching you.",
@@ -11,11 +13,11 @@ var speech_lines : Array = [
 	"Predecessor.",
 	"  ",
 	"How about one last challenge?",
-	took_wand(),
-	took_wand_two(),
+	took_wand,
+	took_wand_two,
 	"Now.",
 	"Why not send you even further down?",
-	"Let's have some fun, little bunny."
+	shall_we_begin
 ]
 
 var post_game_lines : Array = [
@@ -28,7 +30,7 @@ var post_game_lines : Array = [
 	"That your colleagues must grow jealous.",
 	"Yet I grow curious.",
 	"How about the same game? I deem it agreeable.",
-	"It is fun to watch you, little bunny."
+	shall_we_begin
 ]
 
 var no_death_lines : Array = [
@@ -42,7 +44,7 @@ var no_death_lines : Array = [
 	"Will you fall and be one more with the rest of rabbits?",
 	"I am in deep observation for the outcome...",
 	"Chosen One.",
-	"Please, do show me your resolve one more time."
+	shall_we_begin
 ]
 
 var revealed = false
@@ -69,22 +71,38 @@ var dialogue : String = "null"
 
 func _ready():
 	speech.visible_characters = 0
-
+	EventBus.start_challenge.connect(animation_reset)
 
 func took_wand():
 	if PlayerData.player_has_wand:
-		dialogue = "Looking for this?"
+		speech.text = "Looking for this?"
 	else:
-		dialogue = "Interesting you don't have this on you."
-	return dialogue
+		speech.text = "Interesting you don't have this on you."
 
 
 func took_wand_two():
 	if PlayerData.player_has_wand:
-		dialogue = "You're not going anywhere, if not by my hand."
+		speech.text = "You're not going anywhere, if not by my hand."
 	else:
-		dialogue = "Did you lose it, or did someone take it?"
-	return dialogue
+		speech.text = "Did you lose it, or did someone take it?"
+
+
+func shall_we_begin():
+	appear_animation()
+	if PlayerData.times_died == 0:
+		speech.text = "Please, do show me your resolve one more time."
+		return
+	if PlayerData.adventure_mode_complete:
+		speech.text = "It is fun to watch you, little bunny."
+	else:
+		speech.text = "Let's have some fun, little bunny."
+
+
+func appear_animation():
+	master_animation.play("appear")
+
+func animation_reset():
+	master_animation.play("RESET")
 
 func _process(delta):
 	
@@ -138,12 +156,24 @@ func play_letter_bite():
 	else:
 		pass
 
+func next_line_callable(lines : Array):
+	var item = lines[speech_index]
+	
+	if item is Callable:
+		item.call()
+		return true
+	else:
+		return false
+
 func trigger_dialogue():
 	if PlayerData.times_died == 0:
 		speech_timer = 0.0
 		speech.visible_characters = 0
 		if speech_index < no_death_lines.size():
 			speech.visible_characters = 0
+			if next_line_callable(no_death_lines):
+				speech_index += 1
+				return
 			speech.text = str(no_death_lines[speech_index])
 		else:
 			can_pass_dialogue = false
@@ -156,6 +186,9 @@ func trigger_dialogue():
 		speech.visible_characters = 0
 		if speech_index < post_game_lines.size():
 			speech.visible_characters = 0
+			if next_line_callable(post_game_lines):
+				speech_index += 1
+				return
 			speech.text = str(post_game_lines[speech_index])
 		else:
 			can_pass_dialogue = false
@@ -166,6 +199,9 @@ func trigger_dialogue():
 		speech.visible_characters = 0
 		if speech_index < speech_lines.size():
 			speech.visible_characters = 0
+			if next_line_callable(speech_lines):
+				speech_index += 1
+				return
 			speech.text = str(speech_lines[speech_index])
 		else:
 			can_pass_dialogue = false

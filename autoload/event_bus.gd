@@ -8,6 +8,7 @@ signal skill_bought(value : int)
 
 @warning_ignore("unused_signal")
 signal update_checkpoint
+
 var active_checkpoint = null
 
 @warning_ignore("unused_signal")
@@ -36,3 +37,6 @@ signal diamond_key_get
 
 @warning_ignore("unused_signal")
 signal next_challenge
+
+@warning_ignore("unused_signal")
+signal next_challenge_fail
