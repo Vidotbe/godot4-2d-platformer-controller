@@ -72,6 +72,10 @@ var dialogue : String = "null"
 func _ready():
 	speech.visible_characters = 0
 	EventBus.start_challenge.connect(animation_reset)
+	EventBus.item_collected.connect(play_good_animation)
+	EventBus.intermission_fail.connect(play_fail_animation)
+	EventBus.diamond_key_get.connect(start_challenge)
+
 
 func took_wand():
 	if PlayerData.player_has_wand:
@@ -178,6 +182,7 @@ func trigger_dialogue():
 		else:
 			can_pass_dialogue = false
 			EventBus.emit_signal("start_challenge")
+			PlayerData.challenge_start = true
 		speech_index += 1
 		return
 
@@ -193,6 +198,7 @@ func trigger_dialogue():
 		else:
 			can_pass_dialogue = false
 			EventBus.emit_signal("start_challenge")
+			PlayerData.challenge_start = true
 		speech_index += 1
 	else:
 		speech_timer = 0.0
@@ -206,6 +212,7 @@ func trigger_dialogue():
 		else:
 			can_pass_dialogue = false
 			EventBus.emit_signal("start_challenge")
+			PlayerData.challenge_start = true
 		speech_index += 1
 
 func _on_entrance_event_body_entered(_body):
@@ -217,3 +224,34 @@ func _on_entrance_event_body_entered(_body):
 func _on_animation_player_animation_finished(_appear):
 	can_pass_dialogue = true
 	trigger_dialogue()
+
+
+#ANIMATION STUFF
+
+func start_challenge():
+	master_animation.play("intermission_good")
+
+func play_good_animation(item_type : String, _item_value):
+	if item_type == "key_shard":
+		master_animation.play("intermission_good")
+		PlayerData.timer_paused = true
+
+func check_lives():
+	EventBus.emit_signal("check_lives")
+
+func play_fail_animation():
+	master_animation.play("intermission_fail")
+	PlayerData.timer_paused = true
+
+func display_prompt():
+	EventBus.emit_signal("display_prompt")
+
+func resume_challenge():
+	PlayerData.timer_paused = false
+	PlayerData.challenge_start = true
+
+func send_back():
+	if PlayerData.challenge_lives == 0:
+		EventBus.emit_signal("start_challenge")
+		PlayerData.timer_paused = false
+		PlayerData.challenge_start = true

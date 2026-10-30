@@ -118,6 +118,9 @@ func _ready():
 
 	EventBus.next_challenge.connect(_on_reset_variables_pressed)
 
+	EventBus.next_challenge_fail.connect(_on_reset_variables_pressed)
+
+
 	#JUMPING
 	setup_hover($CategoryContainer/Jumping/TopSliders/Container/VBoxContainer/TopSliders/VBoxContainer2/Label, "Tune maximum jump height.")
 	setup_hover($CategoryContainer/Jumping/TopSliders/Container/VBoxContainer/TopSliders/VBoxContainer3/Label, "How fast you reach maximum height.")

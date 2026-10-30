@@ -1,3 +1,5 @@
+res://src/levels
+res://src/components/resources
 res://assets/fonts
 res://src/components/objects/collectible
 res://src/player
@@ -11,7 +13,6 @@ res://src/components/ui
 res://src/player/states
 res://assets/ui/console
 res://autoload
-res://src/levels
 res://assets/sprites/environmental
 C:/Users/USUARIO/Desktop
 res://assets/ui/cursor

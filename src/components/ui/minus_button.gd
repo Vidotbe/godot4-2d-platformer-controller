@@ -86,7 +86,7 @@ func _on_held():
 func on_button_down():
 	button_held = true
 	held_timer = 0.0
-	hold_limit = 0.5
+	hold_limit = 0.2
 	start_loop = false
 
 func on_button_up():

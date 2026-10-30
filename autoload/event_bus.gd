@@ -40,3 +40,15 @@ signal next_challenge
 
 @warning_ignore("unused_signal")
 signal next_challenge_fail
+
+@warning_ignore("unused_signal")
+signal intermission_good
+
+@warning_ignore("unused_signal")
+signal intermission_fail
+
+@warning_ignore("unused_signal")
+signal check_lives
+
+@warning_ignore("unused_signal")
+signal display_prompt

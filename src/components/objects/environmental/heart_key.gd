@@ -36,6 +36,7 @@ func reset_key_position():
 			grabbed = false
 		global_position = start_position
 		keysprite.frame = 0
+		show()
 
 func check_time_left():
 	if not $Sprite2D.visible:
@@ -67,6 +68,7 @@ func _on_body_entered(body):
 		if key_type == "diamond":
 			EventBus.emit_signal("diamond_key_get")
 			keysprite.frame = 1
+			PlayerData.timer_paused = true
 
 
 func despawn_key():

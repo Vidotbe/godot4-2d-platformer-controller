@@ -27,13 +27,22 @@ func physics_update(delta):
 		player.global_position = player.global_position.move_toward(player.fast_travel_target, travel_speed * delta)
 	
 	if player.global_position.distance_to(player.fast_travel_target) < 0.5:
-		player.is_travelling = false
-		if not player.visible:
-			player.respawn_effect()
-			if player.active_key:
-				player.active_key.show()
-		transitioned.emit(self, "Fall")
-
+		if PlayerData.in_challenge:
+			if PlayerData.challenge_start:
+				player.is_travelling = false
+				if not player.visible:
+					player.respawn_effect()
+					if player.active_key:
+						player.active_key.show()
+				transitioned.emit(self, "Fall")
+				PlayerData.challenge_start = false
+		else:
+			player.is_travelling = false
+			if not player.visible:
+				player.respawn_effect()
+				if player.active_key:
+					player.active_key.show()
+			transitioned.emit(self, "Fall")
 
 func check_flight_direction():
 	if player.fast_travel_target.y < player.global_position.y:

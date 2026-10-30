@@ -1,4 +1,4 @@
-[gd_resource type="AudioBusLayout" load_steps=3 format=3 uid="uid://l3xm0lkj18wr"]
+[gd_resource type="AudioBusLayout" load_steps=6 format=3 uid="uid://l3xm0lkj18wr"]
 
 [sub_resource type="AudioEffectLowPassFilter" id="AudioEffectLowPassFilter_ilaec"]
 resource_name = "LowPassFilter"
@@ -6,6 +6,16 @@ resource_name = "LowPassFilter"
 [sub_resource type="AudioEffectPitchShift" id="AudioEffectPitchShift_1iq6b"]
 resource_name = "PitchShift"
 pitch_scale = 0.6
+
+[sub_resource type="AudioEffectLowPassFilter" id="AudioEffectLowPassFilter_2megp"]
+resource_name = "LowPassFilter"
+
+[sub_resource type="AudioEffectHighPassFilter" id="AudioEffectHighPassFilter_qq6s3"]
+resource_name = "HighPassFilter"
+
+[sub_resource type="AudioEffectAmplify" id="AudioEffectAmplify_4kicd"]
+resource_name = "Amplify"
+volume_db = 18.0
 
 [resource]
 bus/1/name = &"Dialogue"
@@ -18,3 +28,15 @@ bus/1/effect/0/effect = SubResource("AudioEffectLowPassFilter_ilaec")
 bus/1/effect/0/enabled = true
 bus/1/effect/1/effect = SubResource("AudioEffectPitchShift_1iq6b")
 bus/1/effect/1/enabled = true
+bus/2/name = &"WavedashDialogue"
+bus/2/solo = false
+bus/2/mute = false
+bus/2/bypass_fx = false
+bus/2/volume_db = 0.0
+bus/2/send = &"Master"
+bus/2/effect/0/effect = SubResource("AudioEffectLowPassFilter_2megp")
+bus/2/effect/0/enabled = true
+bus/2/effect/1/effect = SubResource("AudioEffectHighPassFilter_qq6s3")
+bus/2/effect/1/enabled = true
+bus/2/effect/2/effect = SubResource("AudioEffectAmplify_4kicd")
+bus/2/effect/2/enabled = true

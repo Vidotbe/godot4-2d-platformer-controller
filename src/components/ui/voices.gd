@@ -2,7 +2,7 @@ extends Area2D
 
 var first_interaction = true
 
-var times_died = 7
+var times_died = 0
 
 @onready var voice_player : AnimationPlayer = $VoicePlayer
 

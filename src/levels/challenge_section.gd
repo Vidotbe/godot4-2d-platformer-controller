@@ -144,12 +144,14 @@ var current_challenge : Dictionary = {}
 var prompt_timer : float = 0.0
 var prompt_time_limit : float = 2.0
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready():
 	EventBus.start_challenge.connect(reset_challenges)
 	EventBus.diamond_key_get.connect(next_challenge)
 	EventBus.next_challenge.connect(next_challenge)
 	EventBus.next_challenge_fail.connect(next_challenge_life_lost)
+	EventBus.display_prompt.connect(display_prompt)
+
 
 func reset_challenges():
 	challenge_type = backup_challenges.duplicate(true)
@@ -158,11 +160,26 @@ func reset_challenges():
 	prompt_timer = 0.0
 	prompt.text = ""
 
+func display_prompt():
+	var prompt_text = current_challenge["prompt"]
+	prompt_timer = 0.0
+	if PlayerData.challenge_lives == 0:
+		prompt.text = " TRY AGAIN!"
+		return
+	if challenge_type.is_empty():
+		prompt.text = "GET OUT!"
+		return
+	prompt.text = prompt_text
+
 func next_challenge():
+	challenge_type.erase(current_challenge)
+
 	if challenge_type.is_empty(): #FIRST WE MAKE SURE THAT THERE EVEN IS CHALLENGES LEFT TO COMPLETE
 		end_challenge()
+		return
 
 	else:
+		
 		current_challenge = challenge_type.pick_random() #PICKS A RANDOM ONE FROM THE LIST
 		
 		var destination = current_challenge["target_location"] #TELLS THE PLAYER WHERE THE CHALLENGE IS LOCATED
@@ -174,19 +191,17 @@ func next_challenge():
 		var limit_top = current_challenge["camera_limit_top"]
 		var limit_bottom = current_challenge["camera_limit_bottom"]
 
+		await get_tree().create_timer(3,false).timeout
+
 		player.camera.limit_left = limit_left
 		player.camera.limit_right = limit_right
 		player.camera.limit_top = limit_top
 		player.camera.limit_bottom = limit_bottom
 
-		var prompt_text = current_challenge["prompt"] #A WHITE TEXT POPUP APPEARS THAT TELLS YOU WHAT TO DO. LIKE "JUMP!" FOR EXAMPLE
 
-		prompt_timer = 0.0
-		prompt.text = prompt_text
-
-		challenge_type.erase(current_challenge) #REMOVES THIS CHALLENGE FROM THE LIST, SO NEXT TIME THIS GETS CALLED, IT WILL CALL A NEW ONE
 
 func next_challenge_life_lost():
+	EventBus.emit_signal("intermission_fail")
 	if challenge_type.is_empty(): #FIRST WE MAKE SURE THAT THERE EVEN IS CHALLENGES LEFT TO COMPLETE
 		end_challenge()
 
@@ -202,15 +217,13 @@ func next_challenge_life_lost():
 		var limit_top = current_challenge["camera_limit_top"]
 		var limit_bottom = current_challenge["camera_limit_bottom"]
 
+		await get_tree().create_timer(3,false).timeout
+
 		player.camera.limit_left = limit_left
 		player.camera.limit_right = limit_right
 		player.camera.limit_top = limit_top
 		player.camera.limit_bottom = limit_bottom
 
-		var prompt_text = current_challenge["prompt"] #A WHITE TEXT POPUP APPEARS THAT TELLS YOU WHAT TO DO. LIKE "JUMP!" FOR EXAMPLE
-
-		prompt_timer = 0.0
-		prompt.text = prompt_text
 
 func end_challenge():
 	var data = challenge_end[0]
@@ -224,17 +237,15 @@ func end_challenge():
 	var limit_top = data["camera_limit_top"]
 	var limit_bottom = data["camera_limit_bottom"]
 
+	await get_tree().create_timer(3,false).timeout
+
 	player.camera.limit_left = limit_left
 	player.camera.limit_right = limit_right
 	player.camera.limit_top = limit_top
 	player.camera.limit_bottom = limit_bottom
 
-	var prompt_text = data["prompt"] #A WHITE TEXT POPUP APPEARS THAT TELLS YOU WHAT TO DO. LIKE "JUMP!" FOR EXAMPLE
-
-	prompt_timer = 0.0
-	prompt.text = prompt_text
-
 	end_patch.enabled = false
+
 
 func _process(delta):
 	if prompt.text != "":

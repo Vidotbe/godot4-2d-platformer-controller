@@ -202,7 +202,7 @@ func reset_awareness():
 
 func start_fast_travel(target : Vector2):
 	fast_travel_target = target
-	if not just_died:
+	if not just_died and not PlayerData.in_challenge:
 		keyexplode_sfx.play()
 	is_travelling = true
 	velocity.x = 0
@@ -253,11 +253,11 @@ func respawn():
 		PlayerData.times_died += 1
 		just_died = true
 		if PlayerData.in_challenge:
-			if PlayerData.challenge_lives > 1:
+			if PlayerData.challenge_lives > 0:
 				EventBus.emit_signal("next_challenge_fail")
 				PlayerData.challenge_lives -= 1
 			else:
-				EventBus.emit_signal("start_challenge")
+				EventBus.emit_signal("next_challenge_fail")
 			await get_tree().create_timer(0.1, false).timeout
 			just_died = false
 			return

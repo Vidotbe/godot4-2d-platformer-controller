@@ -96,10 +96,14 @@ func _on_pressed():
 		player.player_fur.modulate = modulate
 		editor.selected_color = self
 		PlayerData.fur_color = modulate
+		for life in get_tree().get_nodes_in_group("challenge_life"):
+			life.fur.modulate = modulate
 	if type == "Eye":
 		player.player_eyes.modulate = modulate
 		editor.selected_eye_color = self
 		PlayerData.eye_color = modulate
+		for life in get_tree().get_nodes_in_group("challenge_life"):
+			life.eyes.modulate = modulate
 	if type == "Glove":
 		player.player_gloves.modulate = modulate
 		editor.selected_glove_color = self

@@ -20,6 +20,7 @@ var timer_started = false
 
 @export var challenge_test = false
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	EventBus.reset_awareness.connect(restore)
@@ -28,7 +29,7 @@ func _ready():
 	EventBus.diamond_key_get.connect(start_timer)
 
 	PlayerData.times_died = 0
-	
+	PlayerData.in_cutscene = false
 
 	if challenge_test:
 		EventBus.emit_signal("start_challenge")
@@ -61,21 +62,24 @@ func _process(delta):
 			player.camera.limit_right = 618
 
 
+
+
 	if level_reveal.offset.y >= -800:
 		level_reveal.offset.y = move_toward(level_reveal.offset.y, -800, reveal_speed * delta)
 	if level_reveal.offset.y == -800:
 		level_reveal.hide()
 
 	if timer_started:
-		challenge_time_limit -= delta
+		if not PlayerData.timer_paused:
+			challenge_time_limit -= delta
 		
 		if challenge_time_limit < 0:
 			challenge_time_limit = 0
 			timer_started = false
-			EventBus.emit_signal("start_challenge")
-			challenge_time_limit = 240
-	
-	
+			PlayerData.challenge_lives = 0
+			EventBus.emit_signal("intermission_fail")
+			time_limit_graphic.hide()
+
 		@warning_ignore("integer_division")
 		var minutes = int(challenge_time_limit) / 60
 		var seconds = int(challenge_time_limit) % 60
