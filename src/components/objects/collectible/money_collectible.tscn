@@ -7,6 +7,7 @@
 size = Vector2(12, 12)
 
 [node name="MoneyCollectible" type="Area2D"]
+z_index = 1
 position = Vector2(0, -2)
 collision_layer = 4
 script = ExtResource("1_f2y6n")

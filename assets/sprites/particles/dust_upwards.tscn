@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://bcxjq1hec6y7u"]
+
+[ext_resource type="Texture2D" uid="uid://bnhgdcj443ddx" path="res://assets/sprites/particles/dust_particle.png" id="1_dkpaf"]
+[ext_resource type="Script" path="res://assets/sprites/particles/dust.gd" id="2_0dlm7"]
+[ext_resource type="Texture2D" uid="uid://dkucbmfie8yjj" path="res://assets/sprites/particles/dust_particle_small.png" id="3_ov0cj"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_spq44"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(4, 1, 1)
+direction = Vector3(0, 1, 0)
+spread = 10.0
+initial_velocity_min = 10.0
+initial_velocity_max = 40.0
+gravity = Vector3(0, -5, 0)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0lp3x"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(6, 1, 1)
+direction = Vector3(0, 1, 0)
+spread = 10.0
+initial_velocity_min = 10.0
+initial_velocity_max = 40.0
+gravity = Vector3(0, -10, 0)
+
+[node name="DustUpwards" type="GPUParticles2D"]
+z_index = 5
+emitting = false
+amount = 2
+process_material = SubResource("ParticleProcessMaterial_spq44")
+texture = ExtResource("1_dkpaf")
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+script = ExtResource("2_0dlm7")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+modulate = Color(0.699653, 0.699653, 0.699653, 1)
+z_index = -1
+emitting = false
+amount = 4
+process_material = SubResource("ParticleProcessMaterial_0lp3x")
+texture = ExtResource("3_ov0cj")
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+
+[connection signal="finished" from="." to="." method="_on_finished"]

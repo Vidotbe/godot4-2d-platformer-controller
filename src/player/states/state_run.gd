@@ -62,6 +62,7 @@ func physics_update(delta):
 			player.is_jumping = true
 			transitioned.emit(self, "Fall")
 			player.animation.start("jump")
+			player.jump_particles()
 			return
 
 		if Input.is_action_pressed("down"):

@@ -22,6 +22,7 @@ func physics_update(delta):
 			player.is_jumping = true
 			transitioned.emit(self, "Fall")
 			player.animation.start("jump")
+			player.jump_particles()
 			return
 
 		player.velocity.x = move_toward(player.velocity.x, 0, player.slide_deceleration * delta)

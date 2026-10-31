@@ -3,6 +3,9 @@ extends State
 @onready var coyote_timer : Timer = $Coyote_Time
 @onready var jump_buffer : Timer = $Jump_Buffer
 
+var particle_timer : float = 0.0
+var particle_timer_interval : float = 0.05
+
 func _ready():
 	await owner.ready
 	if player:
@@ -27,6 +30,7 @@ func physics_update(delta):
 			player.velocity.y = move_toward(player.velocity.y, player.fall_speed, player.air_downward_gravity * delta)
 		else:
 			player.velocity.y = move_toward(player.velocity.y, player.fall_speed, player.gravity * delta)
+			spawn_upwards_particles(delta)
 		
 		
 		if not Input.is_action_pressed("jump") and player.velocity.y < player.downward_fall_animation and not player.is_in_fan and not player.used_spring:
@@ -79,6 +83,7 @@ func physics_update(delta):
 				player.velocity.y = player.jump_height
 				player.jump_sfx.play()
 				player.animation.start("jump")
+				player.jump_particles()
 				return
 
 			elif coyote_timer.is_stopped() and player.can_double_jump and player.double_jump_enabled:
@@ -88,6 +93,7 @@ func physics_update(delta):
 				player.velocity.y = player.jump_height
 				player.jump_sfx.play()
 				player.animation.start("double_jump")
+				player.jump_particles()
 				return
 				
 			if jump_buffer.is_stopped():
@@ -102,8 +108,10 @@ func physics_update(delta):
 				player.velocity.y = player.wall_jump_height
 				player.velocity.x = player.wall_jump_push * player.move_direction
 				player.is_jumping = true
+				player.can_double_jump = true
 				player.move_direction *= -1
 				player.animation.start("jump")
+				player.wall_jump_particles()
 				player.jump_sfx.play()
 				jump_buffer.stop()
 				return
@@ -126,6 +134,7 @@ func physics_update(delta):
 			player.jump_sfx.play()
 			player.can_double_jump = true
 			jump_buffer.stop()
+			player.jump_particles()
 			if player.used_spring:
 				player.used_spring = false
 			return
@@ -133,3 +142,11 @@ func physics_update(delta):
 			player.is_jumping = false
 			coyote_timer.stop()
 			transitioned.emit(self, "Idle")
+
+
+func spawn_upwards_particles(delta):
+	if player.velocity.y < -120:
+		particle_timer += delta
+		if particle_timer >= particle_timer_interval:
+			particle_timer = 0.0
+			player.upwards_particles()

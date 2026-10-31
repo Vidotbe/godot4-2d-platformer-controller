@@ -22,6 +22,7 @@ func physics_update(delta):
 			player.is_jumping = true
 			transitioned.emit(self, "Fall")
 			player.animation.start("jump")
+			player.jump_particles()
 			return
 
 		if player.move_direction == 1: #RIGHT

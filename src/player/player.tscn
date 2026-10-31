@@ -1,4 +1,4 @@
-[gd_scene load_steps=104 format=3 uid="uid://dueodmpmh8l1b"]
+[gd_scene load_steps=105 format=3 uid="uid://dueodmpmh8l1b"]
 
 [ext_resource type="Script" path="res://src/player/player.gd" id="1_ndqns"]
 [ext_resource type="Texture2D" uid="uid://dydjknojaeev5" path="res://assets/sprites/player/Player_spritesheet.png" id="2_ph1x1"]
@@ -29,6 +29,7 @@
 [ext_resource type="AudioStream" uid="uid://bisfod4sfcal6" path="res://assets/audio/sfx/key_explode_sfx.wav" id="23_403pm"]
 [ext_resource type="Texture2D" uid="uid://boucfrxcghse7" path="res://assets/sprites/environmental/key_explosion_spritesheet.png" id="24_q2sct"]
 [ext_resource type="AudioStream" uid="uid://b6wamg7v4wacj" path="res://assets/audio/sfx/airdash_sfx.wav" id="24_yk6xn"]
+[ext_resource type="Script" path="res://src/player/particle_manager.gd" id="28_g6ptu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4wkmy"]
 resource_local_to_scene = true
@@ -352,10 +353,28 @@ tracks/0/keys = {
 "update": 1,
 "values": [48, 49, 50, 51, 52, 53, 54, 55]
 }
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.2, 0.466667),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"run_particles"
+}, {
+"args": [],
+"method": &"run_particles"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_phfhm"]
 resource_name = "slide"
-length = 0.06667
+length = 0.1
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -367,6 +386,20 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [79]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"run_particles"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_cf088"]
@@ -563,7 +596,7 @@ states/wall_slide_down/position = Vector2(722, 182)
 states/wall_slide_up/node = SubResource("AnimationNodeAnimation_am3i0")
 states/wall_slide_up/position = Vector2(722, 12)
 transitions = ["jump", "jumptofall", SubResource("AnimationNodeStateMachineTransition_iu226"), "jumptofall", "fall", SubResource("AnimationNodeStateMachineTransition_7htan"), "double_jump", "fall", SubResource("AnimationNodeStateMachineTransition_s87xa")]
-graph_offset = Vector2(-194, -520)
+graph_offset = Vector2(-61, -107)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7op7o"]
 size = Vector2(3, 8)
@@ -841,6 +874,9 @@ pitch_scale = 1.7
 [node name="AirDashSfx" type="AudioStreamPlayer2D" parent="SoundEffects"]
 stream = ExtResource("24_yk6xn")
 pitch_scale = 1.5
+
+[node name="ParticleManager" type="Node2D" parent="."]
+script = ExtResource("28_g6ptu")
 
 [node name="Respawn" type="AnimationPlayer" parent="."]
 libraries = {

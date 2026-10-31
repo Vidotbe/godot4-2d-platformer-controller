@@ -27,7 +27,6 @@ extends CanvasLayer
 
 
 
-
 @export var categories : Array = ["Jumping", "Running", "Skills", "Adjustments"]
 var index = 0
 
@@ -94,7 +93,7 @@ var capacity_used = 0
 func _ready():
 	if PlayerData.sandbox_mode:
 		maximum_capacity = 1000
-		categories += ["Wall Slide", "Air Dash", "Themes"]
+		categories += ["Wall Slide", "Air Dash"]
 
 	update_ui()
 

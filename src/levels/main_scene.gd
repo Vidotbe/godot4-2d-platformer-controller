@@ -34,6 +34,7 @@ func _ready():
 	if challenge_test:
 		EventBus.emit_signal("start_challenge")
 		PlayerData.in_challenge = true
+		PlayerData.challenge_start = true
 
 	else:
 		PlayerData.in_challenge = false

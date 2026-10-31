@@ -1,6 +1,8 @@
+RemoteTransform2D
+GPUParticles2D
+Node2D
 Sprite2D
 AudioStreamPlayer
-Node2D
 AnimatedSprite2D
 TextureRect
 ParallaxBackground
@@ -11,4 +13,3 @@ CollisionShape2D
 Area2D
 Label
 Control
-TileMapLayer

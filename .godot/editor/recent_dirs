@@ -1,8 +1,9 @@
+res://assets/sprites/particles
 res://src/levels
+res://src/player
 res://src/components/resources
 res://assets/fonts
 res://src/components/objects/collectible
-res://src/player
 res://src/components/objects/environmental
 res://assets/tilemaps/environment/resources
 res://assets/audio

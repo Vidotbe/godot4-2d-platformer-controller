@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://cogfek1qsupv8"]
+
+[ext_resource type="Texture2D" uid="uid://bnhgdcj443ddx" path="res://assets/sprites/particles/dust_particle.png" id="1_suyex"]
+[ext_resource type="Script" path="res://assets/sprites/particles/dust.gd" id="2_rtf8i"]
+[ext_resource type="Texture2D" uid="uid://dkucbmfie8yjj" path="res://assets/sprites/particles/dust_particle_small.png" id="3_e1tc8"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cwwck"]
+particle_flag_disable_z = true
+direction = Vector3(1, -0.1, 0)
+spread = 10.0
+initial_velocity_min = 40.0
+initial_velocity_max = 80.0
+gravity = Vector3(0, -5, 0)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8qs66"]
+particle_flag_disable_z = true
+direction = Vector3(1, -0.1, 0)
+spread = 10.0
+initial_velocity_min = 20.0
+initial_velocity_max = 80.0
+gravity = Vector3(0, -10, 0)
+
+[node name="DustWallSlideDown" type="GPUParticles2D"]
+z_index = 5
+rotation = -1.5708
+emitting = false
+amount = 4
+process_material = SubResource("ParticleProcessMaterial_cwwck")
+texture = ExtResource("1_suyex")
+lifetime = 0.4
+one_shot = true
+explosiveness = 1.0
+script = ExtResource("2_rtf8i")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+modulate = Color(0.698039, 0.698039, 0.698039, 1)
+emitting = false
+amount = 12
+process_material = SubResource("ParticleProcessMaterial_8qs66")
+texture = ExtResource("3_e1tc8")
+lifetime = 0.4
+one_shot = true
+explosiveness = 1.0
+
+[connection signal="finished" from="." to="." method="_on_finished"]

@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=3 uid="uid://by5nb2bdwu8u1"]
+
+[ext_resource type="Script" path="res://assets/sprites/particles/dust.gd" id="1_nk7xf"]
+[ext_resource type="Texture2D" uid="uid://bnhgdcj443ddx" path="res://assets/sprites/particles/dust_particle.png" id="2_wq08o"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ktbyw"]
+particle_flag_disable_z = true
+direction = Vector3(1, -0.1, 0)
+spread = 10.0
+initial_velocity_min = 100.0
+initial_velocity_max = 175.0
+gravity = Vector3(0, -5, 0)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vnidk"]
+load_path = "res://.godot/imported/dust_particle.png-be7f491f3dc7165e4b4abed15c3b304a.ctex"
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_lwocb"]
+particle_flag_disable_z = true
+direction = Vector3(1, 0.1, 0)
+spread = 10.0
+initial_velocity_min = -175.0
+initial_velocity_max = -100.0
+gravity = Vector3(0, -10, 0)
+
+[node name="DustWallJump" type="GPUParticles2D"]
+z_index = 5
+rotation = 1.5708
+emitting = false
+amount = 6
+process_material = SubResource("ParticleProcessMaterial_ktbyw")
+texture = SubResource("CompressedTexture2D_vnidk")
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+script = ExtResource("1_nk7xf")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+visible = false
+emitting = false
+amount = 6
+process_material = SubResource("ParticleProcessMaterial_lwocb")
+texture = ExtResource("2_wq08o")
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+
+[connection signal="finished" from="." to="." method="_on_finished"]

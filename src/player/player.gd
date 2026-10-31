@@ -83,6 +83,7 @@ var dash_direction : Vector2 = Vector2.ZERO
 
 @onready var camera : Camera2D = $Camera2D
 
+@onready var particle_manager : Node2D = $ParticleManager
 
 @onready var standing_height = collision_shape.shape.size.y
 @onready var standing_position = collision_shape.position.y
@@ -296,3 +297,24 @@ func _on_sprite_2d_frame_changed():
 	player_eyes.frame = $Sprite2D.frame
 	player_gloves.frame = player_fur.frame
 	player_boots.frame = player_fur.frame
+
+func run_particles():
+	if move_direction == 1:
+		particle_manager.run_right_dust()
+	else:
+		particle_manager.run_left_dust()
+
+func jump_particles():
+	particle_manager.jump_dust()
+
+func upwards_particles():
+	particle_manager.upwards_dust()
+
+func wall_slide_particles():
+	if velocity.y >= 0:
+		particle_manager.w_slide_down_dust()
+	else:
+		particle_manager.w_slide_up_dust()
+
+func wall_jump_particles():
+	particle_manager.wall_jump_dust()
