@@ -38,6 +38,7 @@ shape = SubResource("RectangleShape2D_dsk27")
 
 [node name="Label" type="Label" parent="."]
 visible = false
+z_index = 2
 offset_left = -90.0
 offset_top = -103.0
 offset_right = 90.0

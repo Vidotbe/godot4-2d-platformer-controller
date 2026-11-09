@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=41 format=3 uid="uid://dp2ehwtqr1qxp"]
+[gd_resource type="TileSet" load_steps=42 format=3 uid="uid://dp2ehwtqr1qxp"]
 
 [ext_resource type="Texture2D" uid="uid://oum00gdqo61y" path="res://assets/tilemaps/environment/textures/main_tileset.png" id="1_iuscm"]
 [ext_resource type="PackedScene" uid="uid://c4nwq5m3kcple" path="res://src/components/objects/collectible/collectible.tscn" id="2_1j1lf"]
@@ -26,6 +26,7 @@
 [ext_resource type="PackedScene" uid="uid://buv8b7r1nhces" path="res://src/components/objects/environmental/heart_key_giftbox.tscn" id="20_dnxvh"]
 [ext_resource type="PackedScene" uid="uid://twa10kg2jcx4" path="res://src/components/objects/environmental/heart_door_horizontal.tscn" id="21_lbi6r"]
 [ext_resource type="PackedScene" uid="uid://bvtjctye7avei" path="res://src/components/objects/environmental/spade_door.tscn" id="22_0dg3u"]
+[ext_resource type="PackedScene" uid="uid://3462ewgfkrnd" path="res://src/components/objects/environmental/mini_checkpoint.tscn" id="22_22evy"]
 [ext_resource type="PackedScene" uid="uid://x8dka0c3wyx0" path="res://src/components/objects/environmental/spade_door_horizontal.tscn" id="23_bjy1d"]
 [ext_resource type="PackedScene" uid="uid://cglcff2dcfgxl" path="res://src/components/objects/environmental/spade_key_giftbox.tscn" id="24_rfhp1"]
 [ext_resource type="Texture2D" uid="uid://byowfspehrlac" path="res://assets/tilemaps/environment/textures/lair_tileset.png" id="27_kgbdt"]
@@ -137,6 +138,7 @@ scenes/4/scene = ExtResource("15_ol4jm")
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_h55bu"]
 resource_name = "Checkpoint"
 scenes/1/scene = ExtResource("13_5yudn")
+scenes/2/scene = ExtResource("22_22evy")
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_376kx"]
 resource_name = "Heart Key"

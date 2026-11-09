@@ -1,4 +1,4 @@
-[gd_scene load_steps=105 format=3 uid="uid://dueodmpmh8l1b"]
+[gd_scene load_steps=101 format=3 uid="uid://dueodmpmh8l1b"]
 
 [ext_resource type="Script" path="res://src/player/player.gd" id="1_ndqns"]
 [ext_resource type="Texture2D" uid="uid://dydjknojaeev5" path="res://assets/sprites/player/Player_spritesheet.png" id="2_ph1x1"]
@@ -19,10 +19,6 @@
 [ext_resource type="AudioStream" uid="uid://iigumb3ydh12" path="res://assets/audio/sfx/reddiamond_sfx.wav" id="14_tqu0v"]
 [ext_resource type="Script" path="res://src/player/states/state_fast_travel.gd" id="15_3562u"]
 [ext_resource type="AudioStream" uid="uid://dx6j1jlt0r0dg" path="res://assets/audio/sfx/spring_sfx.wav" id="15_imwf2"]
-[ext_resource type="AudioStream" uid="uid://bqb2rx0dpdnj4" path="res://assets/audio/sfx/death1_sfx.wav" id="16_sepik"]
-[ext_resource type="AudioStream" uid="uid://kaghdsxe7r0s" path="res://assets/audio/sfx/death2_sfx.wav" id="17_gate7"]
-[ext_resource type="AudioStream" uid="uid://bo0786xno8w5i" path="res://assets/audio/sfx/death3_sfx.wav" id="18_nuvjk"]
-[ext_resource type="AudioStream" uid="uid://1i321533krgl" path="res://assets/audio/sfx/death4_sfx.wav" id="19_qbvba"]
 [ext_resource type="AudioStream" uid="uid://c3050kewajrsc" path="res://assets/audio/sfx/death5_sfx.wav" id="20_6sows"]
 [ext_resource type="AudioStream" uid="uid://ctk3x8goqjtyo" path="res://assets/audio/sfx/ledge_grab_sfx.wav" id="20_h6qw3"]
 [ext_resource type="AudioStream" uid="uid://cw687aaylwvjt" path="res://assets/audio/sfx/ledge_getup_sfx.wav" id="21_nyhta"]
@@ -58,13 +54,8 @@ streams_count = 1
 stream_0/stream = ExtResource("15_imwf2")
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_c2id2"]
-random_pitch = 2.0
-streams_count = 5
-stream_0/stream = ExtResource("16_sepik")
-stream_1/stream = ExtResource("17_gate7")
-stream_2/stream = ExtResource("18_nuvjk")
-stream_3/stream = ExtResource("19_qbvba")
-stream_4/stream = ExtResource("20_6sows")
+streams_count = 1
+stream_0/stream = ExtResource("20_6sows")
 
 [sub_resource type="Animation" id="Animation_km20e"]
 length = 0.001
@@ -861,6 +852,7 @@ stream = SubResource("AudioStreamRandomizer_wb8m5")
 
 [node name="RespawnSfx" type="AudioStreamPlayer2D" parent="SoundEffects"]
 stream = SubResource("AudioStreamRandomizer_c2id2")
+pitch_scale = 2.0
 
 [node name="LedgeGrabSfx" type="AudioStreamPlayer2D" parent="SoundEffects"]
 stream = ExtResource("20_h6qw3")

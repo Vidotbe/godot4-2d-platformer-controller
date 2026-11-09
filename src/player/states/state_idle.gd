@@ -8,6 +8,24 @@ func enter():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func physics_update(delta):
+	check_movement_animation(delta)
+	if player.in_dialogue:
+		transitioned.emit(self, "Idle")
+		player.velocity.x = 0
+		player.velocity.y = 0
+		if Input.is_action_pressed("down"):
+			if abs(player.velocity.x) > 10 and player.slide_enabled:
+				if player.slide_enabled:
+					player.apply_crouch_shape()
+					transitioned.emit(self, "Slide")
+					player.animation.start("slide")
+					return
+
+			player.apply_crouch_shape()
+			transitioned.emit(self, "Crouch")
+			player.animation.travel("crouch")
+		return
+
 	if not player.is_on_floor():
 		player.is_jumping = false
 		transitioned.emit(self, "Fall")
@@ -56,6 +74,9 @@ func physics_update(delta):
 		transitioned.emit(self, "Air Dash")
 		return
 
+
+
+func check_movement_animation(delta):
 	if player.is_on_floor():
 		player.velocity.x = move_toward(player.velocity.x, 0, player.ground_friction * delta)
 		if abs(player.velocity.x) >= player.walk_to_run_threshold:

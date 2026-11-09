@@ -7,7 +7,7 @@ extends Area2D
 @export var is_unlocked = false
 @export var checkpointID = 0
 @export var map_name : String = ""
-
+@export var warp_checkpoint = true
 
 func _ready():
 	EventBus.update_checkpoint.connect(on_update_checkpoint)

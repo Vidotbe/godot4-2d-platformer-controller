@@ -8,6 +8,16 @@ func exit():
 	player.reset_standing_shape()
 
 func physics_update(delta):
+	if player.in_dialogue:
+		player.velocity.x = 0
+		if not Input.is_action_pressed("down"):
+			if player.can_stand_up():
+				player.reset_standing_shape()
+				transitioned.emit(self, "Idle")
+				return
+		return
+
+
 	if player.is_on_floor():
 		if not Input.is_action_pressed("down"):
 			if player.can_stand_up():

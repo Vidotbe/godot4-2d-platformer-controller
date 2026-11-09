@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fcfxe"]
 size = Vector2(8, 7)
 
-[node name="Spikes" type="Area2D"]
+[node name="_Area2D_313673" type="Area2D"]
 texture_filter = 1
 collision_layer = 0
 script = ExtResource("1_3lw0t")

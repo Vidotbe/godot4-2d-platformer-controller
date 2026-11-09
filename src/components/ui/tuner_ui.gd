@@ -26,7 +26,7 @@ extends CanvasLayer
 @onready var SlideDecelerationSlider = $CategoryContainer/Skills/SlideDecelerationSlider
 
 
-
+@export var extra_categories : Array = ["Wall Slide", "Air Dash"]
 @export var categories : Array = ["Jumping", "Running", "Skills", "Adjustments"]
 var index = 0
 
@@ -191,7 +191,7 @@ func _input(event):
 				update_window_number()
 
 func add_category(category_to_add : String):
-	if category_to_add != "null":
+	if category_to_add in extra_categories:
 		categories += [category_to_add]
 		update_window_number()
 
@@ -323,13 +323,39 @@ func _process(delta):
 	else:
 		offset.y = move_toward(offset.y, 102, console_speed_down * delta)
 
-	if PlayerData.in_cutscene and console_text.text == "  [C]onsole":
-		active = false
-		console_text.text = "  [C]onsole DISABLED"
+	if player.in_dialogue:
+		if PlayerData.spooky_mode:
+			if console_text.text == "  Spooky [C]onsole":
+				active = false
+				console_text.text = "  Spooky [C]onsole SPOOKED"
+				return
+
+		else:
+			if console_text.text == "  [C]onsole":
+				active = false
+				console_text.text = "  [C]onsole DISABLED"
+				return
 		return
 
-	if not PlayerData.in_cutscene and console_text.text != "  [C]onsole":
-		console_text.text = "  [C]onsole"
+	if PlayerData.spooky_mode:
+		if PlayerData.in_cutscene and console_text.text == "  Spooky [C]onsole":
+			active = false
+			console_text.text = "  Spooky [C]onsole SPOOKED"
+			return
+
+		if not PlayerData.in_cutscene and console_text.text != "  Spooky [C]onsole":
+			console_text.text = "  Spooky [C]onsole"
+	else:
+		if PlayerData.in_cutscene and console_text.text == "  [C]onsole":
+			active = false
+			console_text.text = "  [C]onsole DISABLED"
+			return
+
+		if not PlayerData.in_cutscene and console_text.text != "  [C]onsole":
+			console_text.text = "  [C]onsole"
+
+	if PlayerData.spooky_mode and not $CategoryContainer/Adjustments/Invincibility.visible:
+		$CategoryContainer/Adjustments/Invincibility.show()
 
 func toggle_console():
 	if PlayerData.in_cutscene:
@@ -382,13 +408,13 @@ func _on_previous_button_pressed():
 	category_sfx.play()
 	index = posmod(index - 1, categories.size())
 	update_ui()
-
+	update_window_number()
 
 func _on_next_button_pressed():
 	category_sfx.play()
 	index = (index + 1) % categories.size()
 	update_ui()
-
+	update_window_number()
 
 func update_ui():
 	var current = categories[index]

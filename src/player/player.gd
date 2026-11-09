@@ -10,6 +10,8 @@ var can_air_dash = true
 var just_died = false
 var used_wand = false
 var is_invincible = false
+var in_dialogue = false
+
 
 @export_category("Skills")
 @export var double_jump_enabled = false
@@ -132,6 +134,9 @@ func _ready():
 	EventBus.reset_awareness.connect(reset_awareness)
 	EventBus.start_challenge.connect(set_challenge_camera)
 
+	EventBus.dialogue_started.connect(in_a_dialogue)
+	EventBus.dialogue_over.connect(out_of_dialogue)
+
 
 	player_fur.modulate = PlayerData.fur_color
 	player_eyes.modulate = PlayerData.eye_color
@@ -151,6 +156,11 @@ func reset_active_key():
 	await get_tree().process_frame
 	active_key = null
 
+func in_a_dialogue():
+	in_dialogue = true
+
+func out_of_dialogue():
+	in_dialogue = false
 
 func check_move_direction(delta):
 	if move_direction == 1: #RIGHT

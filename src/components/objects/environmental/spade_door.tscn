@@ -10,6 +10,7 @@ size = Vector2(46, 64)
 size = Vector2(20, 64)
 
 [node name="SpadeDoor" type="Area2D"]
+z_index = 2
 texture_filter = 1
 position = Vector2(0, -28)
 collision_layer = 0

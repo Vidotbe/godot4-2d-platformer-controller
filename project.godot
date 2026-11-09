@@ -16,7 +16,7 @@ config/features=PackedStringArray("4.3", "Forward Plus")
 boot_splash/bg_color=Color(0.0784314, 0.0784314, 0.0784314, 1)
 boot_splash/show_image=false
 boot_splash/use_filter=false
-config/icon="res://assets/ui/icons/icon_upscaled.png"
+config/icon="res://assets/ui/icons/svgicon.svg"
 
 [audio]
 

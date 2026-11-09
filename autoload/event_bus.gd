@@ -52,3 +52,9 @@ signal check_lives
 
 @warning_ignore("unused_signal")
 signal display_prompt
+
+@warning_ignore("unused_signal")
+signal dialogue_started
+
+@warning_ignore("unused_signal")
+signal dialogue_over

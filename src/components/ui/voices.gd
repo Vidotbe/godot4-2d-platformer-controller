@@ -40,6 +40,9 @@ func request_death_voice():
 		if voice_player.has_animation(animation_name):
 			voice_player.play(animation_name)
 
+	if times_died == 10:
+		PlayerData.spooky_mode = true
+
 func request_context_dialog(context : String = "Test"):
 	if context == "wavedash_tutorial_complete":
 		completed_wavedash_tutorial = true

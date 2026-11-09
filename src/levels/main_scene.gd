@@ -4,6 +4,7 @@ extends Node2D
 @onready var patch : TileMapLayer = $TileMapLayer2
 @onready var top_wall : TileMapLayer = $TopPatch
 @onready var lair : TileMapLayer = $Lair
+@onready var lair_details : TileMapLayer = $Lair/LairDetails
 @onready var lair_floor : TileMapLayer = $LairFloor
 @onready var background : Sprite2D = $Background/ParallaxLayer/TextureRect
 @onready var black_background : ColorRect = $Background/ColorRect
@@ -95,6 +96,7 @@ func restore():
 func all_diamonds():
 	top_wall.enabled = false
 	lair.enabled = true
+	lair_details.enabled = true
 
 func start_challenge():
 	background.hide()

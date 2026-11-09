@@ -4,6 +4,8 @@ extends Node2D
 
 @onready var end_patch : TileMapLayer = $Patch
 
+@onready var popup_anim : AnimationPlayer = $CanvasLayer/PromptPopUp
+
 var challenge_type : Array[Dictionary] = [
 	{
 		"name": "Jump1",
@@ -169,6 +171,7 @@ func display_prompt():
 	if challenge_type.is_empty():
 		prompt.text = "GET OUT!"
 		return
+	popup_anim.play("popup")
 	prompt.text = prompt_text
 
 func next_challenge():
@@ -191,7 +194,7 @@ func next_challenge():
 		var limit_top = current_challenge["camera_limit_top"]
 		var limit_bottom = current_challenge["camera_limit_bottom"]
 
-		await get_tree().create_timer(3,false).timeout
+		await get_tree().create_timer(2,false).timeout
 
 		player.camera.limit_left = limit_left
 		player.camera.limit_right = limit_right
@@ -217,7 +220,7 @@ func next_challenge_life_lost():
 		var limit_top = current_challenge["camera_limit_top"]
 		var limit_bottom = current_challenge["camera_limit_bottom"]
 
-		await get_tree().create_timer(3,false).timeout
+		await get_tree().create_timer(2,false).timeout
 
 		player.camera.limit_left = limit_left
 		player.camera.limit_right = limit_right
@@ -237,7 +240,7 @@ func end_challenge():
 	var limit_top = data["camera_limit_top"]
 	var limit_bottom = data["camera_limit_bottom"]
 
-	await get_tree().create_timer(3,false).timeout
+	await get_tree().create_timer(2,false).timeout
 
 	player.camera.limit_left = limit_left
 	player.camera.limit_right = limit_right

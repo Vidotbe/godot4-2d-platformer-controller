@@ -8,13 +8,23 @@ extends Button
 
 @export var category_name : String = "null"
 
+@onready var label : RichTextLabel = $Label
+
+@export var money_icon_path : String = "res://assets/ui/icons/moneyicon.png"
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if PlayerData.sandbox_mode:
 		queue_free()
 		return
 
-	text = str(price)
+	var raw_text = "%s # %d" % [category_name, price]
+
+	var money_icon = "[img=8]%s[/img]" % [money_icon_path]
+
+	var formatted_text = raw_text.replace("#", money_icon)
+
+	label.text = formatted_text
 
 
 func _on_pressed():

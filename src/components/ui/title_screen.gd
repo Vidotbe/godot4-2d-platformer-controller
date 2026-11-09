@@ -61,7 +61,8 @@ var random_pre_text : Array = [
 	"No thanks, bro.",
 	"What is better - to be born good, or to overcome your evil nature through Great Effort?",
 	"Don't let the corruption of others be an excuse for your own.",
-	"He never realized changing his life was where the magic happened."
+	"He never realized changing his life was where the magic happened.",
+	"What was, what is, and what will be, has always been."
 ]
 
 # Called when the node enters the scene tree for the first time.

@@ -23,6 +23,23 @@ func exit():
 
 
 func physics_update(delta):
+	if player.in_dialogue:
+		player.velocity.x = 0
+		if not player.is_on_floor():
+			player.velocity.y += player.player_variable_jump_brake * delta
+			if player.velocity.y >= player.downward_fall_animation:
+				player.animation.travel("fall")
+				player.velocity.y = move_toward(player.velocity.y, player.fall_speed, player.air_downward_gravity * delta)
+			else:
+				player.velocity.y = move_toward(player.velocity.y, player.fall_speed, player.gravity * delta)
+				spawn_upwards_particles(delta)
+		else:
+			player.is_jumping = false
+			coyote_timer.stop()
+			transitioned.emit(self, "Idle")
+		return
+
+
 	if not player.is_on_floor():
 		
 		if player.velocity.y >= player.downward_fall_animation:
@@ -84,6 +101,7 @@ func physics_update(delta):
 				player.jump_sfx.play()
 				player.animation.start("jump")
 				player.jump_particles()
+				coyote_timer.stop()
 				return
 
 			elif coyote_timer.is_stopped() and player.can_double_jump and player.double_jump_enabled:

@@ -182,7 +182,7 @@ animations = [{
 }]
 
 [node name="DiamondKey" type="Area2D"]
-z_index = 2
+z_index = 4
 texture_filter = 1
 collision_layer = 0
 script = ExtResource("1_oh5cb")

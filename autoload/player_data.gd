@@ -1,7 +1,7 @@
 extends Node
 
 var player_has_wand = false
-var sandbox_mode = false
+var sandbox_mode = true
 var adventure_mode_complete = false
 var in_cutscene = false
 
@@ -11,6 +11,8 @@ var gloves_color : Color = Color.WHITE
 var boots_color : Color = Color.WHITE
 
 var browser_mode = false
+var spooky_mode = false
+
 
 var times_died = 0
 

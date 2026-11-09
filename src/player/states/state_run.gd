@@ -10,6 +10,12 @@ func exit():
 	pass
 
 func physics_update(delta):
+	if player.in_dialogue:
+		transitioned.emit(self, "Idle")
+		player.velocity.x = 0
+		player.velocity.y = 0
+		return
+
 	if player.is_on_floor():
 		check_animation()
 		if player.hold_to_run:
@@ -82,6 +88,7 @@ func physics_update(delta):
 			player.velocity.x = player.air_dash_speed * player.dash_direction.x
 			player.velocity.y = player.air_dash_speed * player.dash_direction.y
 			player.animation.start("air_dash")
+			player.is_jumping = false
 			transitioned.emit(self, "Air Dash")
 			return
 
