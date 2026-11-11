@@ -304,8 +304,7 @@ func find_checkbuttons(node : Node):
 	return checkbuttons
 
 func _process(delta):
-	if Input.is_action_just_pressed("console"):
-		toggle_console()
+
 
 	if active:
 		if Input.is_action_just_pressed("next"):
@@ -353,6 +352,9 @@ func _process(delta):
 
 		if not PlayerData.in_cutscene and console_text.text != "  [C]onsole":
 			console_text.text = "  [C]onsole"
+
+	if Input.is_action_just_pressed("console"):
+		toggle_console()
 
 	if PlayerData.spooky_mode and not $CategoryContainer/Adjustments/Invincibility.visible:
 		$CategoryContainer/Adjustments/Invincibility.show()

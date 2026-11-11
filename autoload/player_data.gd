@@ -1,7 +1,7 @@
 extends Node
 
 var player_has_wand = false
-var sandbox_mode = true
+var sandbox_mode = false
 var adventure_mode_complete = false
 var in_cutscene = false
 

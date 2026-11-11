@@ -11,6 +11,8 @@ var just_died = false
 var used_wand = false
 var is_invincible = false
 var in_dialogue = false
+var just_left_wall = false
+var left_wall_direction = 1
 
 
 @export_category("Skills")

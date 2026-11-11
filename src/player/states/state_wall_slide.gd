@@ -4,7 +4,7 @@ var particle_timer : float = 0.0
 var particle_timer_interval : float = 0.1
 
 func enter():
-	pass
+	player.just_left_wall = false
 
 func exit():
 	pass
@@ -41,6 +41,8 @@ func physics_update(delta):
 					player.is_jumping = true
 					transitioned.emit(self, "Fall")
 					player.animation.start("fall")
+					player.just_left_wall = true
+					player.left_wall_direction = -1
 					return
 			else:
 				if Input.is_action_just_pressed("right"):
@@ -48,6 +50,8 @@ func physics_update(delta):
 					player.is_jumping = true
 					transitioned.emit(self, "Fall")
 					player.animation.start("fall")
+					player.just_left_wall = true
+					player.left_wall_direction = 1
 					return
 		
 		elif not player.wall_detect.is_colliding():

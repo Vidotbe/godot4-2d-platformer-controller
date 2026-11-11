@@ -18,9 +18,11 @@ func _ready():
 	add_to_group("challenge_life")
 
 func reset_life_status():
+	await get_tree().process_frame
 	exploded_already = false
 	fur.show()
 	eyes.show()
+	$AnimationPlayer.play("dance")
 
 func check_life_count():
 	if PlayerData.challenge_lives < life_number and not exploded_already:
@@ -29,3 +31,10 @@ func check_life_count():
 		sfx.play()
 		fur.hide()
 		eyes.hide()
+
+
+func _on_animation_player_animation_finished(anim_name):
+	if anim_name == "dance":
+		$AnimationPlayer.play("dance_2")
+	if anim_name == "dance_2":
+		$AnimationPlayer.play("dance")

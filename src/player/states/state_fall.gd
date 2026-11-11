@@ -6,6 +6,9 @@ extends State
 var particle_timer : float = 0.0
 var particle_timer_interval : float = 0.05
 
+var just_left_wall_timer : float = 0.0
+var just_left_wall_limit : float = 0.1
+
 func _ready():
 	await owner.ready
 	if player:
@@ -41,7 +44,12 @@ func physics_update(delta):
 
 
 	if not player.is_on_floor():
-		
+		if player.just_left_wall:
+			just_left_wall_timer += delta
+			if just_left_wall_timer >= just_left_wall_limit:
+				player.just_left_wall = false
+				just_left_wall_timer = 0.0
+
 		if player.velocity.y >= player.downward_fall_animation:
 			player.animation.travel("fall")
 			player.velocity.y = move_toward(player.velocity.y, player.fall_speed, player.air_downward_gravity * delta)
@@ -96,6 +104,18 @@ func physics_update(delta):
 				player.velocity.x = move_toward(player.velocity.x, 0, player.air_friction * delta)
 
 		if Input.is_action_just_pressed("jump"):
+			if player.just_left_wall:
+				player.velocity.y = player.wall_jump_height
+				player.velocity.x = player.wall_jump_push * -player.left_wall_direction
+				player.jump_sfx.play()
+				player.is_jumping = true
+				player.move_direction = player.left_wall_direction
+				player.wall_jump_particles()
+				player.animation.start("jump")
+				player.just_left_wall = false
+				just_left_wall_timer = 0.0
+				return
+
 			if not coyote_timer.is_stopped():
 				player.velocity.y = player.jump_height
 				player.jump_sfx.play()

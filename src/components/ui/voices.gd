@@ -44,9 +44,10 @@ func request_death_voice():
 		PlayerData.spooky_mode = true
 
 func request_context_dialog(context : String = "Test"):
-	if context == "wavedash_tutorial_complete":
-		completed_wavedash_tutorial = true
-	voice_player.play(context)
+	if activated:
+		if context == "wavedash_tutorial_complete":
+			completed_wavedash_tutorial = true
+		voice_player.play(context)
 
 
 

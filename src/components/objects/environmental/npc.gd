@@ -90,6 +90,9 @@ func _ready():
 	dialogue_box.position.y -= box_y
 
 func _process(delta):
+	if dialogue_prompt.visible and not player in get_overlapping_bodies():
+		dialogue_prompt.hide()
+
 	if in_talking_range and not dialogue_active:
 		if Input.is_action_just_pressed("next") and player.is_on_floor():
 			trigger_dialogue()
@@ -118,7 +121,7 @@ func _process(delta):
 
 			match current_char:
 				"?", "!", ".", ",":
-					next_letter_timer -= 0.2
+					next_letter_timer -= 0.3
 
 		if not next_letter_enabled:
 			next_letter_timer += delta
@@ -144,11 +147,13 @@ func play_letter_bite():
 func next_line_callable(lines : Array):
 	var item = lines[dialogue_index]
 	
-	if item is Callable:
-		item.call()
-		return true
-	else:
-		return false
+	if item is String:
+		if has_method(item):
+			var action = Callable(self,item)
+			action.call()
+			return true
+
+	return false
 
 func trigger_dialogue():
 	var get_dialogue = "dialogue_" + str(times_interacted_with)
@@ -180,6 +185,15 @@ func trigger_dialogue():
 		EventBus.dialogue_over.emit()
 		return
 	dialogue_index += 1
+
+
+#CONDITIONAL DIALOGS
+func check_for_wand():
+	if PlayerData.player_has_wand:
+		dialogue.text = "...Wuh? Why are you talking to me? I'm sleeping..."
+	else:
+		dialogue.text = "zzz......"
+
 
 func _on_body_entered(_body):
 	dialogue_prompt.show()
